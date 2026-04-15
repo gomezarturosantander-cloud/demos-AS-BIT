@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GYM ÉLITE San Lorenzo | Gimnasio Premium en Paraguay |demo de AS BIT</title>
+<meta name="description" content="El mejor gimnasio en San Lorenzo, Paraguay. Entrenamiento personal, musculación, clases grupales y nutrición. ¡Empezá tu transformación hoy!"/>
+<meta name="keywords" content="gimnasio san lorenzo, gym paraguay, entrenamiento personal paraguay, musculacion san lorenzo, gym san lorenzo paraguay"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,400;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ─── VARIABLES ─────────────────────────────────────── */
+:root{
+  --black:#111010;
+  --dark:#0d0d0d;
+  --dark2:#141414;
+  --card:#1a1a1a;
+  --lime:#ff0000;
+  --lime-dark:rgba(208, 23, 23, 0.862)862);
+  --white:#ffffff;
+  --gray:#9ca3af;
+  --gray2:#4b5563;
+  --border:rgba(255,255,255,.07);
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--black);
+  color:var(--white);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+
+/* ─── DISPLAY FONT ──────────────────────────────────── */
+.display{font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;}
+
+/* ─── REVEAL ────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.on{opacity:1;transform:none;}
+.rd1{transition-delay:.1s;}.rd2{transition-delay:.2s;}.rd3{transition-delay:.3s;}.rd4{transition-delay:.4s;}
+
+/* ─── NAV ───────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 40px;
+  transition:all .3s;
+}
+nav.stuck{
+  background:rgba(5,5,5,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 40px;
+}
+.nav-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem;font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-logo .accent{color:var(--lime);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-links a{
+  font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);transition:color .2s;
+}
+.nav-links a:hover{color:var(--lime);}
+.nav-cta{
+  background:var(--lime);color:var(--black);
+  padding:10px 22px;border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.8rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+  transition:all .15s;
+}
+.nav-cta:hover{background:#fff;}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.ham span{display:block;width:22px;height:2px;background:#fff;transition:all .3s;border-radius:1px;}
+.mob-menu{
+  display:none;position:fixed;inset:0;z-index:800;
+  background:var(--black);
+  flex-direction:column;align-items:center;justify-content:center;gap:36px;
+}
+.mob-menu.open{display:flex;}
+.mob-menu a{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;}
+.mob-close{position:absolute;top:24px;right:32px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;}
+
+/* ─── HERO ──────────────────────────────────────────── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero-media{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+  transform:scale(1.04);
+  animation:kzoom 20s ease-in-out infinite alternate;
+}
+@keyframes kzoom{from{transform:scale(1.04);}to{transform:scale(1.1);}}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(5,5,5,1) 0%, rgba(5,5,5,.55) 40%, rgba(5,5,5,.2) 70%, transparent 100%);
+}
+.hero-side-line{
+  position:absolute;left:40px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  z-index:5;
+}
+.hero-side-line span{
+  font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);writing-mode:vertical-rl;
+}
+.hero-side-line::before{
+  content:'';width:1px;height:60px;background:var(--lime);opacity:.6;
+}
+.hero-content{
+  position:relative;z-index:3;
+  padding:0 80px 80px;
+  max-width:1100px;
+}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(223,255,0,.1);border:1px solid rgba(223,255,0,.3);
+  color:var(--lime);padding:6px 16px;border-radius:4px;
+  font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero-chip::before{content:'●';font-size:.5rem;animation:blink 1.4s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.hero h1{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(4rem,10vw,9rem);
+  font-weight:900;line-height:.95;
+  text-transform:uppercase;
+  margin-bottom:24px;
+  letter-spacing:-.02em;
+}
+.hero h1 .hl{
+  -webkit-text-stroke:2px var(--lime);
+  color:transparent;
+}
+.hero-sub{
+  font-size:1.05rem;color:rgba(255,255,255,.7);
+  max-width:480px;line-height:1.7;margin-bottom:36px;font-weight:300;
+}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px;}
+.btn-lime{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--lime);color:var(--black);
+  padding:16px 36px;border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  transition:all .2s;
+  box-shadow:0 0 40px rgba(223,255,0,.25);
+}
+.btn-lime:hover{background:#fff;transform:translateY(-2px);box-shadow:0 0 60px rgba(223,255,0,.3);}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:10px;
+  background:transparent;color:#fff;
+  padding:16px 36px;border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  border:1.5px solid rgba(255,255,255,.3);
+  transition:all .2s;
+}
+.btn-ghost:hover{border-color:var(--lime);color:var(--lime);}
+.hero-stats{
+  display:flex;gap:40px;flex-wrap:wrap;
+}
+.hero-stat{}
+.hero-stat-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.4rem;font-weight:900;color:var(--lime);
+  line-height:1;
+}
+.hero-stat-label{
+  font-size:.72rem;color:rgba(255,255,255,.45);
+  text-transform:uppercase;letter-spacing:.1em;margin-top:4px;
+}
+.hero-badge{
+  position:absolute;top:50%;right:60px;transform:translateY(-50%);
+  z-index:5;
+  background:var(--lime);color:var(--black);
+  width:120px;height:120px;border-radius:50%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;
+  line-height:1.3;
+  animation:spin-slow 12s linear infinite;
+  box-shadow:0 0 60px rgba(223,255,0,.4);
+}
+@keyframes spin-slow{from{transform:translateY(-50%) rotate(0);}to{transform:translateY(-50%) rotate(360deg);}}
+.hero-badge-inner{animation:spin-slow 12s linear infinite reverse;}
+
+/* ─── SECTION COMMONS ───────────────────────────────── */
+.section{padding:100px 0;}
+.container{max-width:1200px;margin:0 auto;padding:0 40px;}
+.section-tag{
+  display:inline-block;
+  font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--lime);font-weight:700;margin-bottom:12px;
+}
+.section-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(2.5rem,5vw,4.5rem);
+  font-weight:900;text-transform:uppercase;
+  line-height:1.05;margin-bottom:16px;
+  letter-spacing:-.01em;
+}
+.section-title .hl{color:var(--lime);}
+.section-title .ghost{
+  -webkit-text-stroke:1.5px rgba(255,255,255,.3);
+  color:transparent;
+}
+.section-body{
+  font-size:1rem;color:var(--gray);line-height:1.75;font-weight:300;
+}
+
+/* ─── URGENCY BAR ───────────────────────────────────── */
+.urgency-bar{
+  background:var(--lime);color:var(--black);
+  text-align:center;padding:12px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.85rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;
+  overflow:hidden;
+  position:relative;
+}
+.urgency-scroll{
+  display:inline-flex;gap:60px;
+  animation:marquee 20s linear infinite;
+  white-space:nowrap;
+}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ─── INSTALACIONES ─────────────────────────────────── */
+.install-section{background:var(--dark);}
+.install-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-rows:320px 320px;
+  gap:12px;margin-top:48px;
+}
+.install-card{
+  position:relative;overflow:hidden;border-radius:16px;
+  cursor:pointer;
+}
+.install-card.big{grid-column:1/3;}
+.install-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .7s cubic-bezier(.2,0,.2,1);
+}
+.install-card:hover img{transform:scale(1.08);}
+.install-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(5,5,5,.95) 0%,rgba(5,5,5,.1) 55%,transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:28px;
+}
+.install-tag{
+  display:inline-block;
+  background:var(--lime);color:var(--black);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 10px;border-radius:3px;margin-bottom:8px;
+  align-self:flex-start;
+}
+.install-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.5rem;font-weight:900;text-transform:uppercase;
+  margin-bottom:6px;
+}
+.install-benefit{
+  font-size:.82rem;color:rgba(255,255,255,.65);
+  line-height:1.5;
+}
+
+/* ─── SERVICIOS ─────────────────────────────────────── */
+.services-section{background:var(--black);}
+.services-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:2px;margin-top:48px;
+  border:2px solid var(--border);border-radius:20px;overflow:hidden;
+}
+.service-card{
+  background:var(--dark2);
+  padding:44px 40px;
+  border:1px solid var(--border);
+  transition:background .3s;
+  position:relative;overflow:hidden;
+}
+.service-card::after{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--lime);transform:scaleY(0);transform-origin:bottom;
+  transition:transform .3s;
+}
+.service-card:hover{background:var(--card);}
+.service-card:hover::after{transform:scaleY(1);}
+.service-icon{
+  font-size:2.5rem;margin-bottom:20px;
+  display:block;
+}
+.service-result{
+  display:inline-block;
+  background:rgba(223,255,0,.1);color:var(--lime);
+  font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 12px;border-radius:3px;margin-bottom:12px;
+}
+.service-title{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:900;text-transform:uppercase;
+  margin-bottom:10px;
+}
+.service-text{font-size:.9rem;color:var(--gray);line-height:1.7;}
+
+/* ─── PRECIOS ───────────────────────────────────────── */
+.pricing-section{
+  background:var(--dark);
+  position:relative;overflow:hidden;
+}
+.pricing-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--lime),transparent);
+}
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;margin-top:56px;align-items:start;
+}
+.plan-card{
+  background:var(--dark2);border:1px solid var(--border);
+  border-radius:20px;overflow:hidden;
+  transition:transform .3s,box-shadow .3s;
+}
+.plan-card:hover{transform:translateY(-8px);box-shadow:0 32px 80px rgba(0,0,0,.5);}
+.plan-card.featured{
+  background:var(--black);
+  border-color:var(--lime);
+  box-shadow:0 0 60px rgba(223,255,0,.1);
+  transform:scale(1.03);
+}
+.plan-card.featured:hover{transform:scale(1.03) translateY(-8px);}
+.plan-header{padding:32px 32px 24px;}
+.plan-badge{
+  display:inline-block;
+  background:var(--lime);color:var(--black);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.65rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;
+  padding:4px 12px;border-radius:3px;margin-bottom:16px;
+}
+.plan-badge.alt{background:var(--gray2);color:#fff;}
+.plan-badge.vip{background:linear-gradient(90deg,#dfff00,#b8d400);}
+.plan-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.6rem;font-weight:900;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.plan-tagline{font-size:.85rem;color:var(--gray);margin-bottom:20px;}
+.plan-price{
+  display:flex;align-items:baseline;gap:6px;margin-bottom:6px;
+}
+.plan-price-num{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:2.8rem;font-weight:900;color:var(--lime);line-height:1;
+}
+.plan-price-period{font-size:.78rem;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;}
+.plan-urgency{
+  font-size:.75rem;color:rgba(223,255,0,.7);
+  display:flex;align-items:center;gap:6px;margin-bottom:0;
+  font-weight:600;
+}
+.plan-urgency::before{content:'⚠';font-size:.7rem;}
+.plan-divider{height:1px;background:var(--border);margin:0 32px;}
+.plan-features{padding:24px 32px 32px;}
+.plan-feat{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 0;border-bottom:1px dashed var(--border);
+  font-size:.88rem;color:rgba(255,255,255,.75);
+}
+.plan-feat:last-child{border-bottom:none;}
+.plan-feat::before{content:'✓';color:var(--lime);font-weight:700;flex-shrink:0;margin-top:1px;}
+.plan-feat.no{color:var(--gray2);}
+.plan-feat.no::before{content:'–';color:var(--gray2);}
+.plan-cta{
+  display:block;text-align:center;
+  background:var(--lime);color:var(--black);
+  margin:0 32px 32px;padding:14px;border-radius:8px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  transition:all .2s;
+}
+.plan-cta:hover{background:#fff;}
+.plan-cta.outline{
+  background:transparent;color:var(--lime);
+  border:1.5px solid var(--lime);
+}
+.plan-cta.outline:hover{background:var(--lime);color:var(--black);}
+.pricing-note{
+  text-align:center;margin-top:28px;
+  font-size:.82rem;color:var(--gray);
+}
+
+/* ─── TESTIMONIOS ───────────────────────────────────── */
+.testi-section{background:var(--black);}
+.testi-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:20px;margin-top:48px;
+}
+.testi-card{
+  background:var(--dark2);border:1px solid var(--border);
+  border-radius:16px;padding:28px;
+  transition:border-color .3s,transform .3s;
+}
+.testi-card:hover{border-color:rgba(223,255,0,.3);transform:translateY(-4px);}
+.testi-stars{color:var(--lime);font-size:.9rem;letter-spacing:3px;margin-bottom:16px;}
+.testi-text{
+  font-size:.95rem;color:rgba(255,255,255,.8);
+  line-height:1.7;margin-bottom:20px;font-style:italic;
+  font-weight:300;
+}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-av{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--lime);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:1rem;color:var(--black);
+  flex-shrink:0;
+}
+.testi-name{font-weight:700;font-size:.9rem;color:#fff;}
+.testi-detail{font-size:.75rem;color:var(--gray);}
+.testi-transform{
+  display:inline-block;
+  background:rgba(223,255,0,.1);color:var(--lime);
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 10px;border-radius:3px;margin-top:6px;
+}
+
+/* ─── TRAINERS ──────────────────────────────────────── */
+.trainers-section{background:var(--dark);}
+.trainers-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:24px;margin-top:48px;
+}
+.trainer-card{
+  background:var(--dark2);border-radius:20px;overflow:hidden;
+  border:1px solid var(--border);
+  transition:transform .3s,box-shadow .3s;
+}
+.trainer-card:hover{transform:translateY(-8px);box-shadow:0 32px 80px rgba(0,0,0,.5);}
+.trainer-img{height:380px;overflow:hidden;position:relative;}
+.trainer-img img{
+  width:100%;height:100%;object-fit:cover;object-position:top;
+  transition:transform .6s ease;
+}
+.trainer-card:hover .trainer-img img{transform:scale(1.06);}
+.trainer-exp{
+  position:absolute;top:20px;right:20px;
+  background:var(--lime);color:var(--black);
+  font-family:'Barlow Condensed',sans-serif;
+  font-weight:900;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 12px;border-radius:4px;
+}
+.trainer-info{padding:24px 28px 28px;}
+.trainer-spec{
+  font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--lime);margin-bottom:8px;
+}
+.trainer-name{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.8rem;font-weight:900;text-transform:uppercase;
+  margin-bottom:10px;line-height:1;
+}
+.trainer-bio{font-size:.85rem;color:var(--gray);line-height:1.65;margin-bottom:14px;}
+.trainer-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.trainer-tag{
+  font-size:.67rem;font-weight:600;
+  background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);
+  padding:4px 10px;border-radius:4px;
+}
+
+/* ─── UBICACION ─────────────────────────────────────── */
+.location-section{background:var(--black);}
+.location-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start;}
+.loc-info{display:flex;flex-direction:column;gap:24px;}
+.loc-block{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--dark2);border:1px solid var(--border);
+  border-radius:14px;padding:20px;
+  transition:border-color .2s;
+}
+.loc-block:hover{border-color:rgba(223,255,0,.3);}
+.loc-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(223,255,0,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.loc-label{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);margin-bottom:4px;}
+.loc-value{font-size:.92rem;color:rgba(255,255,255,.8);line-height:1.6;}
+.map-wrap{
+  height:440px;border-radius:20px;overflow:hidden;
+  border:2px solid var(--border);
+}
+.map-wrap iframe{width:100%;height:100%;border:none;}
+
+/* ─── CTA FINAL ─────────────────────────────────────── */
+.cta-section{
+  background:var(--dark);
+  position:relative;overflow:hidden;
+  text-align:center;padding:120px 40px;
+}
+.cta-bg-text{
+  position:absolute;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:20vw;font-weight:900;text-transform:uppercase;
+  color:rgba(255,255,255,.025);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  white-space:nowrap;pointer-events:none;
+  letter-spacing:-.02em;
+}
+.cta-section h2{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(3rem,7vw,7rem);font-weight:900;
+  text-transform:uppercase;line-height:1;
+  margin-bottom:20px;position:relative;z-index:2;
+}
+.cta-section h2 .hl{color:var(--lime);}
+.cta-section p{
+  font-size:1.05rem;color:var(--gray);
+  max-width:440px;margin:0 auto 40px;line-height:1.7;
+  position:relative;z-index:2;
+}
+.cta-buttons{
+  display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  position:relative;z-index:2;margin-bottom:48px;
+}
+.cta-chips{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  position:relative;z-index:2;
+}
+.cta-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.05);border:1px solid var(--border);
+  color:rgba(255,255,255,.55);
+  padding:8px 16px;border-radius:4px;font-size:.75rem;
+  font-weight:500;
+}
+.cta-chip span{color:var(--lime);}
+
+/* ─── WA FLOAT ──────────────────────────────────────── */
+.wa-float{
+  position:fixed;bottom:28px;right:28px;z-index:800;
+  display:flex;align-items:center;gap:12px;
+  background:#25D366;color:#fff;
+  padding:14px 22px;border-radius:50px;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:.9rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;
+  box-shadow:0 8px 40px rgba(37,211,102,.45);
+  transition:all .2s;
+  animation:wapop 3s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.06);box-shadow:0 12px 56px rgba(37,211,102,.6);}
+@keyframes wapop{0%,100%{box-shadow:0 8px 40px rgba(37,211,102,.45);}50%{box-shadow:0 8px 56px rgba(37,211,102,.7);}}
+
+/* ─── FOOTER ────────────────────────────────────────── */
+footer{
+  background:#020202;
+  border-top:1px solid var(--border);
+  padding:40px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;
+}
+.footer-logo{
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:1.2rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;
+}
+.footer-logo span{color:var(--lime);}
+.footer-copy{
+  font-size:.7rem;color:var(--gray2);
+  text-transform:uppercase;letter-spacing:.12em;
+}
+.footer-links{display:flex;gap:20px;}
+.footer-links a{font-size:.7rem;color:var(--gray2);letter-spacing:.08em;text-transform:uppercase;transition:color .2s;}
+.footer-links a:hover{color:var(--lime);}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media(max-width:1024px){
+  .hero-badge{display:none;}
+  .install-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .install-card.big{grid-column:auto;}
+  .location-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px;}
+  .nav-links,.nav-cta{display:none;}
+  .ham{display:flex;}
+  .hero-content{padding:0 24px 64px;}
+  .hero-side-line{display:none;}
+  .hero h1{font-size:4rem;}
+  .section{padding:64px 0;}
+  .container{padding:0 24px;}
+  .install-grid{grid-template-columns:1fr;grid-template-rows:auto;}
+  .services-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .plan-card.featured{transform:scale(1);}
+  .testi-grid,.trainers-grid{grid-template-columns:1fr;}
+  .hero-stats{gap:24px;}
+  .cta-section{padding:80px 24px;}
+  footer{flex-direction:column;text-align:center;}
+  .footer-links{flex-direction:column;align-items:center;gap:10px;}
+  .wa-float span{display:none;}
+  .wa-float{padding:14px 18px;border-radius:50%;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── URGENCY BAR ──────────────────────────────────── -->
+<div class="urgency-bar">
+  <div class="urgency-scroll">
+    <span>🔥 PROMO MAYO · 50% OFF EN TU PRIMER MES</span>
+    <span>⚡ CUPOS LIMITADOS · SOLO 10 LUGARES DISPONIBLES</span>
+    <span>🔥 PROMO MAYO · 50% OFF EN TU PRIMER MES</span>
+    <span>⚡ CUPOS LIMITADOS · SOLO 10 LUGARES DISPONIBLES</span>
+    <span>🔥 PROMO MAYO · 50% OFF EN TU PRIMER MES</span>
+    <span>⚡ CUPOS LIMITADOS · SOLO 10 LUGARES DISPONIBLES</span>
+  </div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="nav-logo"><span class="accent">GYM</span> ÉLITE-DEMO DE AS BIT</div>
+  <div class="nav-links">
+    <a href="#instalaciones">Instalaciones</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#precios">Planes</a>
+    <a href="#trainers">Trainers</a>
+    <a href="#ubicacion">Ubicación</a>
+  </div>
+  <a href="https://wa.me/595900000000?text=Hola!%20Vi%20el%20gym%20y%20quiero%20consultar%20sobre%20los%20planes." target="_blank" class="nav-cta">Empezá Hoy →</a>
+  <button class="ham" id="ham"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" id="mobClose">✕</button>
+  <a href="#instalaciones" onclick="closeMob()">Instalaciones</a>
+  <a href="#servicios" onclick="closeMob()">Servicios</a>
+  <a href="#precios" onclick="closeMob()">Planes & Precios</a>
+  <a href="#trainers" onclick="closeMob()">Trainers</a>
+  <a href="#ubicacion" onclick="closeMob()">Ubicación</a>
+  <a href="https://wa.me/595900000000" target="_blank" class="btn-lime" style="margin-top:8px;">Empezá Hoy →</a>
+</div>
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-media"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-side-line"><span>San Lorenzo · Paraguay</span></div>
+  <div class="hero-badge">
+    <div class="hero-badge-inner">
+      <div>🏆</div>
+      <div>GYM N°1</div>
+      <div>SAN LORENZO</div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-chip">Gimnasio Premium · San Lorenzo, Paraguay</div>
+    <h1>
+      Tu cuerpo.<br>
+      Tu <span class="hl">Transformación.</span><br>
+      Empezá Hoy.
+    </h1>
+    <p class="hero-sub">
+      Dejá de esperar el "momento perfecto". Acá en San Lorenzo te damos el ambiente, las máquinas y los trainers para que finalmente veas resultados reales.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20empezar%20en%20el%20gym%20y%20consultar%20precios%20%F0%9F%92%AA" target="_blank" class="btn-lime">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Escribinos por WhatsApp
+      </a>
+      <a href="#precios" class="btn-ghost">Ver Planes y Precios</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">+800</div>
+        <div class="hero-stat-label">Miembros activos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Años en San Lorenzo</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">24/7</div>
+        <div class="hero-stat-label">Acceso libre</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Clases semanales</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSTALACIONES ─────────────────────────────────── -->
+<section id="instalaciones" class="section install-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">✦ Instalaciones</div>
+      <h2 class="section-title">Equipamiento de <span class="hl">Nivel</span><br><span class="ghost">Superior</span></h2>
+      <p class="section-body" style="max-width:520px;">Tecnología de última generación para que entrenes sin excusas. Sin esperar máquinas. Sin perder tiempo.</p>
+    </div>
+    <div class="install-grid">
+      <div class="install-card big reveal rd1">
+        <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?q=80&w=2069&auto=format&fit=crop" alt="Zona de Pesas"/>
+        <div class="install-overlay">
+          <div class="install-tag">Zona Estrella</div>
+          <div class="install-name">Peso Libre y Musculación</div>
+          <div class="install-benefit">Más de 200 elementos de musculación. Barras olímpicas, mancuernas hasta 60kg y racks exclusivos. Entrená como los profesionales.</div>
+        </div>
+      </div>
+      <div class="install-card reveal rd2">
+        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1975&auto=format&fit=crop" alt="Cardio"/>
+        <div class="install-overlay">
+          <div class="install-tag">High Tech</div>
+          <div class="install-name">Cardio Digital</div>
+          <div class="install-benefit">Cintas, bicicletas y elípticas con pantallas interactivas. Quemá calorías sin aburrirte.</div>
+        </div>
+      </div>
+      <div class="install-card reveal rd1">
+        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=2069&auto=format&fit=crop" alt="Funcional"/>
+        <div class="install-overlay">
+          <div class="install-tag">Cross Training</div>
+          <div class="install-name">Zona Funcional</div>
+          <div class="install-benefit">Espacio amplio y abierto para workouts de alta intensidad, TRX, battle ropes y más.</div>
+        </div>
+      </div>
+      <div class="install-card big reveal rd2">
+        <img src="https://images.unsplash.com/photo-1518611012118-296072bb5604?q=80&w=2070&auto=format&fit=crop" alt="Clases"/>
+        <div class="install-overlay">
+          <div class="install-tag">15 Clases / Semana</div>
+          <div class="install-name">Salón de Clases Grupales</div>
+          <div class="install-benefit">Zumba, Yoga, Spinning, Box y más. Motivación grupal para que nunca faltes al entreno.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICIOS ─────────────────────────────────────── -->
+<section id="servicios" class="section services-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;margin-bottom:0;">
+      <div class="section-tag">✦ Servicios</div>
+      <h2 class="section-title">Lo que vas a <span class="hl">Lograr</span></h2>
+      <p class="section-body" style="max-width:480px;margin:0 auto;">Sin vueltas. Estos son los resultados que nuestros miembros consiguen.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal rd1">
+        <span class="service-icon">🔥</span>
+        <div class="service-result">Resultado: Bajás de peso</div>
+        <div class="service-title">Quema de Grasa</div>
+        <p class="service-text">Programas de cardio y HIIT diseñados para quemar calorías incluso después de que terminás de entrenar. Sin dietas imposibles — con resultados visibles en 30 días.</p>
+      </div>
+      <div class="service-card reveal rd2">
+        <span class="service-icon">💪</span>
+        <div class="service-result">Resultado: Ganás músculo</div>
+        <div class="service-title">Musculación Pro</div>
+        <p class="service-text">Máquinas biomecánicas de última generación y trainers certificados para construir el cuerpo que querés. Para principiantes y avanzados.</p>
+      </div>
+      <div class="service-card reveal rd3">
+        <span class="service-icon">🥗</span>
+        <div class="service-result">Resultado: Comés mejor</div>
+        <div class="service-title">Nutrición Deportiva</div>
+        <p class="service-text">Plan nutricional personalizado por profesionales. Porque el 70% del resultado está en lo que comés. Aprés a comer para rendir, no para sufrir.</p>
+      </div>
+      <div class="service-card reveal rd1">
+        <span class="service-icon">🧘</span>
+        <div class="service-result">Resultado: Mejorás tu salud</div>
+        <div class="service-title">Bienestar Integral</div>
+        <p class="service-text">Yoga, movilidad y clases grupales para que tu cuerpo se mueva mejor, duermas mejor y te sientas con energía todo el día. No solo estética.</p>
+      </div>
+      <div class="service-card reveal rd2">
+        <span class="service-icon">⚡</span>
+        <div class="service-result">Resultado: Progresás más rápido</div>
+        <div class="service-title">Entrenamiento Personal</div>
+        <p class="service-text">Un trainer exclusivo que te diseña el plan, te corrige la técnica y te empuja cuando querés rendirte. La forma más rápida de ver cambios reales.</p>
+      </div>
+      <div class="service-card reveal rd3">
+        <span class="service-icon">🕒</span>
+        <div class="service-result">Resultado: Entrenas cuando podés</div>
+        <div class="service-title">Acceso 24/7</div>
+        <p class="service-text">Horario de trabajo, hijos, imprevistos — no son excusas acá. El gym está abierto cuando vos podés. Así de simple.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRECIOS ────────────────────────────────────────── -->
+<section id="precios" class="section pricing-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-tag">✦ Planes y Precios</div>
+      <h2 class="section-title">Invertí en Vos.<br><span class="hl">Precios Claros.</span></h2>
+      <p class="section-body" style="max-width:460px;margin:0 auto;">Sin letras chicas. Sin sorpresas. Elegí el plan que se adapta a vos — y empezá hoy mismo.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- BÁSICO -->
+      <div class="plan-card reveal rd1">
+        <div class="plan-header">
+          <div class="plan-badge alt">Plan Básico</div>
+          <div class="plan-name">Starter</div>
+          <div class="plan-tagline">Para empezar sin presión</div>
+          <div class="plan-price">
+            <div class="plan-price-num">Gs. 180.000</div>
+            <div class="plan-price-period">/ mes</div>
+          </div>
+          <div class="plan-urgency">Cupos disponibles esta semana</div>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat">Acceso de Lunes a Viernes</div>
+          <div class="plan-feat">Zona de musculación y cardio</div>
+          <div class="plan-feat">Casillero incluido</div>
+          <div class="plan-feat">Evaluación física inicial</div>
+          <div class="plan-feat no">Clases grupales</div>
+          <div class="plan-feat no">Nutrición personalizada</div>
+          <div class="plan-feat no">Trainer personal</div>
+        </div>
+        <a href="https://wa.me/595900000000?text=Hola!%20Me%20interesa%20el%20Plan%20Básico%20(Gs.%20180.000)" target="_blank" class="plan-cta outline">Consultar este plan</a>
+      </div>
+
+      <!-- FULL - FEATURED -->
+      <div class="plan-card featured reveal rd2">
+        <div class="plan-header">
+          <div class="plan-badge">⭐ MÁS POPULAR</div>
+          <div class="plan-name">Full Access</div>
+          <div class="plan-tagline">El que más resultados da</div>
+          <div class="plan-price">
+            <div class="plan-price-num">Gs. 280.000</div>
+            <div class="plan-price-period">/ mes</div>
+          </div>
+          <div class="plan-urgency">Solo quedan 4 cupos este mes</div>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat">Acceso 7 días · 24 horas</div>
+          <div class="plan-feat">Todas las zonas del gym</div>
+          <div class="plan-feat">Clases grupales ilimitadas</div>
+          <div class="plan-feat">Plan nutricional inicial</div>
+          <div class="plan-feat">Evaluación física mensual</div>
+          <div class="plan-feat">Casillero + toalla incluida</div>
+          <div class="plan-feat no">Trainer personal 1 a 1</div>
+        </div>
+        <a href="https://wa.me/595900000000?text=Hola!%20Me%20interesa%20el%20Plan%20Full%20Access%20(Gs.%20280.000)" target="_blank" class="plan-cta">¡Quiero este plan!</a>
+      </div>
+
+      <!-- VIP -->
+      <div class="plan-card reveal rd3">
+        <div class="plan-header">
+          <div class="plan-badge vip">Plan VIP</div>
+          <div class="plan-name">Elite</div>
+          <div class="plan-tagline">Máximos resultados, garantizados</div>
+          <div class="plan-price">
+            <div class="plan-price-num">Gs. 450.000</div>
+            <div class="plan-price-period">/ mes</div>
+          </div>
+          <div class="plan-urgency">Cupos VIP: muy limitados</div>
+        </div>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat">Todo lo del plan Full</div>
+          <div class="plan-feat">8 sesiones de trainer personal</div>
+          <div class="plan-feat">Plan nutricional completo</div>
+          <div class="plan-feat">Seguimiento semanal</div>
+          <div class="plan-feat">Acceso a área VIP exclusiva</div>
+          <div class="plan-feat">WhatsApp directo con tu trainer</div>
+          <div class="plan-feat">Garantía de resultados en 60 días</div>
+        </div>
+        <a href="https://wa.me/595900000000?text=Hola!%20Me%20interesa%20el%20Plan%20VIP%20Elite%20(Gs.%20450.000)" target="_blank" class="plan-cta outline">Quiero el plan VIP</a>
+      </div>
+
+    </div>
+    <p class="pricing-note reveal">Facilidades de pago · Primer mes con descuento · <strong style="color:var(--lime);">Consulta sin compromiso</strong></p>
+  </div>
+</section>
+
+<!-- ── TESTIMONIOS ────────────────────────────────────── -->
+<section class="section testi-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center;">
+      <div class="section-tag">✦ Resultados Reales</div>
+      <h2 class="section-title">Lo Dicen Quienes <span class="hl">Ya Cambiaron</span></h2>
+      <p class="section-body" style="max-width:460px;margin:0 auto;">No te vendemos sueños. Te mostramos personas reales de San Lorenzo que transformaron su cuerpo acá.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal rd1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Llevaba años queriendo empezar y siempre lo postergaba. Entré en enero con 18kg de más y en 4 meses bajé 14kg. Los trainers son una otra cosa — te empujan justo cuando querés aflojar."</p>
+        <div class="testi-author">
+          <div class="testi-av">MR</div>
+          <div>
+            <div class="testi-name">Marcos Rodríguez</div>
+            <div class="testi-detail">San Lorenzo · Plan Full Access</div>
+            <div class="testi-transform">↓ 14kg en 4 meses</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Fui a varios gyms en Asunción y ninguno me daba el ambiente de acá. Las máquinas siempre libres, el lugar limpio y los trainers te conocen por el nombre. El plan VIP valió cada guaraní."</p>
+        <div class="testi-author">
+          <div class="testi-av">LG</div>
+          <div>
+            <div class="testi-name">Luciana González</div>
+            <div class="testi-detail">San Lorenzo · Plan VIP Elite</div>
+            <div class="testi-transform">↑ 8kg de músculo en 3 meses</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Tengo diabetes tipo 2 y mi médico me recomendó hacer ejercicio. Acá me armaron un plan seguro y hoy mi glucosa está perfecta. No es solo un gym — es salud de verdad."</p>
+        <div class="testi-author">
+          <div class="testi-av">AP</div>
+          <div>
+            <div class="testi-name">Alberto Paredes</div>
+            <div class="testi-detail">Fernando de la Mora · Plan Básico</div>
+            <div class="testi-transform">Glucosa normalizada en 60 días</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Las clases grupales de Zumba me volvieron loca. Antes me aburrían los gyms y ahora no me quiero perder ni una. Bajé 8kg y lo más importante: me siento feliz."</p>
+        <div class="testi-author">
+          <div class="testi-av">VR</div>
+          <div>
+            <div class="testi-name">Valeria Ramírez</div>
+            <div class="testi-detail">San Lorenzo · Plan Full Access</div>
+            <div class="testi-transform">↓ 8kg · Nueva energía</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Vine con mi esposa y los dos empezamos juntos. Carlos (nuestro trainer) nos hizo planes distintos según el objetivo de cada uno. En 2 meses los dos notamos la diferencia."</p>
+        <div class="testi-author">
+          <div class="testi-av">DN</div>
+          <div>
+            <div class="testi-name">Diego Núñez</div>
+            <div class="testi-detail">Capiatá · Plan Full Access</div>
+            <div class="testi-transform">Familia activa · 2 meses de resultados</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal rd3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">"Soy estudiante universitario y el precio del plan básico me cierra perfecto. El horario 24/7 me salva la vida porque estudio de noche. El gym siempre limpio y sin aglomeraciones."</p>
+        <div class="testi-author">
+          <div class="testi-av">FM</div>
+          <div>
+            <div class="testi-name">Facundo Martínez</div>
+            <div class="testi-detail">San Lorenzo · Plan Básico</div>
+            <div class="testi-transform">Constancia de 6 meses seguidos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRAINERS ───────────────────────────────────────── -->
+<section id="trainers" class="section trainers-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">✦ Nuestro Equipo</div>
+      <h2 class="section-title">Trainers que <span class="hl">Generan</span><br>Resultados</h2>
+      <p class="section-body" style="max-width:500px;">No son solo instructores. Son tu equipo. Cada uno diseña tu plan, te corrige, te motiva y te acompaña hasta que logres lo que viniste a buscar.</p>
+    </div>
+    <div class="trainers-grid">
+      <div class="trainer-card reveal rd1">
+        <div class="trainer-img">
+          <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fe?q=80&w=1974&auto=format&fit=crop" alt="Carlos Ortiz"/>
+          <div class="trainer-exp">10 años exp.</div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-spec">Musculación · Fuerza · Nutrición</div>
+          <div class="trainer-name">Carlos Ortiz</div>
+          <p class="trainer-bio">Ex campeón regional de powerlifting. Especializado en ganancia de masa muscular y fuerza funcional. Más de 300 alumnos transformados en San Lorenzo. Su método: progresión constante, sin saltear pasos.</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">Hypertrophy</span>
+            <span class="trainer-tag">Powerlifting</span>
+            <span class="trainer-tag">Rehabilitación</span>
+          </div>
+        </div>
+      </div>
+      <div class="trainer-card reveal rd2">
+        <div class="trainer-img">
+          <img src="https://images.unsplash.com/photo-1548690312-e3b507d17a12?q=80&w=1974&auto=format&fit=crop" alt="María Jiménez"/>
+          <div class="trainer-exp">7 años exp.</div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-spec">CrossFit · Funcional · Pérdida de peso</div>
+          <div class="trainer-name">María Jiménez</div>
+          <p class="trainer-bio">Certificada en CrossFit Level 2 y entrenamiento funcional femenino. Especialista en pérdida de grasa y tonificación. Sus clases grupales son las más pedidas del gym — enérgica, técnica y siempre motivando.</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">CrossFit L2</span>
+            <span class="trainer-tag">HIIT</span>
+            <span class="trainer-tag">Tonificación</span>
+          </div>
+        </div>
+      </div>
+      <div class="trainer-card reveal rd3">
+        <div class="trainer-img">
+          <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=1974&auto=format&fit=crop" alt="Juan Pérez"/>
+          <div class="trainer-exp">5 años exp.</div>
+        </div>
+        <div class="trainer-info">
+          <div class="trainer-spec">Personal Training · Bienestar · Salud</div>
+          <div class="trainer-name">Juan Pérez</div>
+          <p class="trainer-bio">Licenciado en Educación Física (UNA). Especializado en entrenamiento para personas con condiciones de salud específicas (diabetes, hipertensión, lesiones). Referente del plan VIP — acompañamiento total.</p>
+          <div class="trainer-tags">
+            <span class="trainer-tag">Salud especial</span>
+            <span class="trainer-tag">Plan VIP</span>
+            <span class="trainer-tag">Ciencia deportiva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── UBICACIÓN ──────────────────────────────────────── -->
+<section id="ubicacion" class="section location-section">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:48px;">
+      <div class="section-tag">✦ Ubicación</div>
+      <h2 class="section-title">Estamos en el<br><span class="hl">Corazón</span> de San Lorenzo</h2>
+      <p class="section-body" style="max-width:460px;">Fácil de llegar desde cualquier punto del Gran Asunción. Estacionamiento gratuito para socios.</p>
+    </div>
+    <div class="location-grid">
+      <div class="loc-info">
+        <div class="loc-block reveal rd1">
+          <div class="loc-icon">📍</div>
+          <div>
+            <div class="loc-label">Dirección</div>
+            <div class="loc-value">Av. Mariscal López c/ Cerro Corá<br>San Lorenzo, Central, Paraguay<br><span style="color:rgba(255,255,255,.4);font-size:.8rem;">A 2 cuadras del Shopping San Lorenzo</span></div>
+          </div>
+        </div>
+        <div class="loc-block reveal rd2">
+          <div class="loc-icon">🕐</div>
+          <div>
+            <div class="loc-label">Horario de Atención</div>
+            <div class="loc-value">Lunes a Viernes: 06:00 – 23:00 hs<br>Sábados: 07:00 – 20:00 hs<br>Domingos: 08:00 – 14:00 hs<br><span style="color:var(--lime);font-size:.8rem;font-weight:600;">Acceso 24/7 para socios Full y VIP</span></div>
+          </div>
+        </div>
+        <div class="loc-block reveal rd3">
+          <div class="loc-icon">📞</div>
+          <div>
+            <div class="loc-label">Contacto</div>
+            <div class="loc-value">WhatsApp: +595 9XX XXX XXX<br>Instagram: @gymelite.sanlorenzo<br><span style="color:rgba(255,255,255,.4);font-size:.8rem;">Respondemos en menos de 1 hora</span></div>
+          </div>
+        </div>
+        <div class="loc-block reveal rd1">
+          <div class="loc-icon">🚗</div>
+          <div>
+            <div class="loc-label">Cómo llegar</div>
+            <div class="loc-value">Líneas de bus: 30, 12, 55<br>Estacionamiento gratuito · Zona segura<br><span style="color:rgba(255,255,255,.4);font-size:.8rem;">A 15 min del centro de Asunción</span></div>
+          </div>
+        </div>
+        <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20ir%20a%20conocer%20el%20gym%20en%20San%20Lorenzo." target="_blank" class="btn-lime reveal" style="display:inline-flex;margin-top:4px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          Agendar visita gratuita
+        </a>
+      </div>
+      <div class="map-wrap reveal rd2">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.5!2d-57.51!3d-25.34!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zSGVsbG8!5e0!3m2!1ses!2spy!4v1680000000000!5m2!1ses!2spy"
+          allowfullscreen="" loading="lazy" title="Ubicación GYM ÉLITE San Lorenzo">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA FINAL ──────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-bg-text">Empezá</div>
+  <div class="cta-content reveal">
+    <div class="section-tag" style="color:var(--lime);">✦ El Momento es Ahora</div>
+    <h2>
+      Dejá de<br>
+      Postergar<br>
+      Tu <span class="hl">Cuerpo.</span>
+    </h2>
+    <p>Cada día que esperás es un día que no avanzás. Escribinos ahora y empezá hoy mismo — sin excusas, sin vueltas.</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20empezar%20en%20el%20gym%20hoy.%20Me%20pueden%20informar%20sobre%20planes%20y%20precios%3F%20%F0%9F%92%AA" target="_blank" class="btn-lime" style="font-size:1.1rem;padding:18px 44px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Escribinos Ahora y Empezá Hoy
+      </a>
+    </div>
+    <div class="cta-chips">
+      <div class="cta-chip"><span>✓</span> Consulta gratis</div>
+      <div class="cta-chip"><span>✓</span> Sin compromiso</div>
+      <div class="cta-chip"><span>✓</span> Respuesta en 1 hora</div>
+      <div class="cta-chip"><span>✓</span> Primer mes con descuento</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">GYM <span>ÉLITE-DEMO AS BIT</span> San Lorenzo</div>
+  <div class="footer-copy">© 2026 · ESTE GYM ES SOLO UNA DEMO · Desarrollado por <span style="color:var(--lime);">AS BIT</span></div>
+  <div class="footer-links">
+    <a href="#instalaciones">Instalaciones</a>
+    <a href="#precios">Precios</a>
+    <a href="#ubicacion">Ubicación</a>
+    <a href="https://wa.me/595900000000" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+
+<!-- ── WA FLOAT ───────────────────────────────────────── -->
+<a href="https://wa.me/595900000000?text=Hola!%20Vi%20la%20web%20y%20quiero%20consultar%20sobre%20el%20gym%20%F0%9F%92%AA" target="_blank" class="wa-float">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  <span>Empezá Hoy</span>
+</a>
+
+<script>
+// NAV STICK
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('stuck', window.scrollY > 60);
+});
+
+// MOBILE MENU
+const ham = document.getElementById('ham');
+const mobMenu = document.getElementById('mobMenu');
+const mobClose = document.getElementById('mobClose');
+ham.addEventListener('click',()=> mobMenu.classList.add('open'));
+mobClose.addEventListener('click',()=> mobMenu.classList.remove('open'));
+function closeMob(){ mobMenu.classList.remove('open'); }
+
+// SCROLL REVEAL
+const revEls = document.querySelectorAll('.reveal');
+const ro = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); } });
+},{threshold:.1});
+revEls.forEach(el=> ro.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Quinta Paraíso - Tu escape en San Bernardino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@300,1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: "#166534",
+                        'forest-dark': "#0f4a24",
+                        'forest-light': "#16a34a",
+                        sand: "#facc15",
+                        'sand-dark': "#d97706",
+                        earth: "#451a03",
+                        light: "#fafaf9",
+                        whatsapp: "#25D366",
+                    },
+                    fontFamily: {
+                        sans: ["Outfit", "sans-serif"],
+                        serif: ["Playfair Display", "serif"],
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'fade-up': 'fadeUp 0.6s ease forwards',
+                        'slide-in': 'slideIn 0.5s ease forwards',
+                    },
+                    keyframes: {
+                        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-8px)' } },
+                        fadeUp: { from: { opacity: '0', transform: 'translateY(20px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+                        slideIn: { from: { opacity: '0', transform: 'translateX(-20px)' }, to: { opacity: '1', transform: 'translateX(0)' } },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1; line-height: 1; }
+
+        /* Backgrounds */
+        .bg-nature {
+            background-image: linear-gradient(160deg, rgba(10,60,25,0.85) 0%, rgba(22,101,52,0.75) 60%, rgba(0,0,0,0.5) 100%),
+                url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1920');
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+        }
+        .bg-narrative {
+            background-image: linear-gradient(rgba(5,40,15,0.88), rgba(10,50,20,0.92)),
+                url('https://images.unsplash.com/photo-1559825481-12a05cc00344?q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Glass effects */
+        .glass { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+        .glass-dark { background: rgba(0,0,0,0.25); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.15); }
+        .glass-green { background: rgba(22,101,52,0.12); backdrop-filter: blur(10px); border: 1px solid rgba(22,101,52,0.2); }
+
+        /* Urgency badge */
+        .urgency-badge {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse-badge { 0%,100%{ box-shadow: 0 0 0 0 rgba(239,68,68,0.4);} 50%{ box-shadow: 0 0 0 8px rgba(239,68,68,0);}}
+        .pulse-badge { animation: pulse-badge 2s ease infinite; }
+
+        /* Buttons */
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366, #1aad54);
+            box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+            transition: all 0.3s ease;
+        }
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+        }
+        .btn-forest {
+            background: linear-gradient(135deg, #166534, #0f4a24);
+            box-shadow: 0 4px 20px rgba(22,101,52,0.35);
+            transition: all 0.3s ease;
+        }
+        .btn-forest:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(22,101,52,0.5);
+        }
+        .btn-sand {
+            background: linear-gradient(135deg, #facc15, #f59e0b);
+            box-shadow: 0 4px 20px rgba(250,204,21,0.35);
+            transition: all 0.3s ease;
+        }
+        .btn-sand:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(250,204,21,0.5);
+        }
+
+        /* Gallery slider */
+        .gallery-scroll { scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+        .gallery-scroll::-webkit-scrollbar { display: none; }
+        .gallery-item { transition: transform 0.4s ease, box-shadow 0.4s ease; flex-shrink: 0; }
+        .gallery-item:hover { transform: scale(1.02); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+
+        /* Stars */
+        .star { color: #facc15; font-size: 1.1rem; }
+
+        /* FAQ accordion */
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+        .faq-content.open { max-height: 300px; }
+        .faq-icon { transition: transform 0.3s ease; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* Floating WA button */
+        .float-wa { animation: float 3s ease-in-out infinite; }
+
+        /* Nav link hover */
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #166534; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Testimonial card */
+        .testi-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .testi-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+
+        /* Pricing card hover */
+        .price-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .price-card:hover { transform: translateY(-4px); }
+
+        /* Mobile bottom bar */
+        @media (max-width: 768px) {
+            body { padding-bottom: 80px; }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #166534; border-radius: 3px; }
+    </style>
+</head>
+<body class="bg-light font-sans text-slate-800 antialiased selection:bg-forest selection:text-white">
+
+<!-- ============ NAV ============ -->
+<nav class="fixed w-full z-50 glass shadow-sm">
+    <div class="max-w-7xl mx-auto px-5 py-3 flex justify-between items-center">
+        <div class="flex flex-col items-start gap-1">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-forest text-2xl">eco</span>
+                <div class="text-xl font-serif font-bold text-forest tracking-wide">Quinta Paraíso</div>
+            </div>
+            <div class="text-[10px] uppercase tracking-[0.25em] text-slate-400">Demo web creada por AS BIT</div>
+        </div>
+        <div class="hidden md:flex gap-7 text-sm font-semibold">
+            <a href="#instalaciones" class="nav-link hover:text-forest transition text-slate-600">Instalaciones</a>
+            <a href="#galeria" class="nav-link hover:text-forest transition text-slate-600">Galería</a>
+            <a href="#tarifas" class="nav-link hover:text-forest transition text-slate-600">Tarifas</a>
+            <a href="#resenas" class="nav-link hover:text-forest transition text-slate-600">Reseñas</a>
+            <a href="#faq" class="nav-link hover:text-forest transition text-slate-600">FAQ</a>
+        </div>
+        <a href="https://wa.me/595900000000?text=Hola!%20Vi%20la%20web%20y%20quiero%20reservar%20en%20Quinta%20Paraíso.%20¿Tienen%20disponibilidad?" target="_blank"
+            class="btn-whatsapp text-white px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-base">chat</span>
+            <span class="hidden sm:inline">Reservar Ahora</span>
+            <span class="sm:hidden">Reservar</span>
+        </a>
+    </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="bg-nature min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+    <!-- Urgency top bar -->
+    <div class="absolute top-[72px] left-0 w-full bg-red-500/90 backdrop-blur-sm text-white text-center py-2 text-sm font-bold z-40 flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-base animate-pulse">warning</span>
+        Alta demanda los fines de semana · Solo quedan <span class="underline decoration-dotted">3 fechas disponibles este mes</span>
+        <span class="material-symbols-outlined text-base animate-pulse">warning</span>
+    </div>
+
+    <div class="text-center px-4 max-w-4xl relative z-10">
+        <span class="inline-block bg-sand/20 border border-sand/40 text-sand font-bold tracking-[0.2em] uppercase text-xs mb-5 px-4 py-2 rounded-full">
+            ✦ Exclusividad & Naturaleza en San Bernardino ✦
+        </span>
+        <h1 class="text-5xl md:text-7xl font-serif text-white font-bold mb-6 leading-tight drop-shadow-2xl">
+            El descanso que<br/><em class="text-sand">tu familia se merece.</em>
+        </h1>
+        <p class="text-white/90 text-lg md:text-xl mb-8 font-light max-w-2xl mx-auto leading-relaxed">
+            2.000m² de pura naturaleza, piscina con cascada, quincho premium y todo el espacio para desconectar del mundo. Solo para ti.
+        </p>
+        <p class="text-slate-200/70 text-sm mb-10">Sitio demo creado por AS BIT para mostrar un ejemplo de página turística.</p>
+
+        <!-- Quick info badges -->
+        <div class="flex flex-wrap justify-center gap-3 text-white mb-10">
+            <div class="glass text-forest px-4 py-2 rounded-xl flex items-center gap-2 font-bold text-sm shadow-md">
+                <span class="material-symbols-outlined text-base">group</span> Hasta 12 Personas
+            </div>
+            <div class="glass text-forest px-4 py-2 rounded-xl flex items-center gap-2 font-bold text-sm shadow-md">
+                <span class="material-symbols-outlined text-base">pets</span> Pet Friendly
+            </div>
+            <div class="glass text-forest px-4 py-2 rounded-xl flex items-center gap-2 font-bold text-sm shadow-md">
+                <span class="material-symbols-outlined text-base">wifi</span> Wi-Fi Starlink
+            </div>
+            <div class="glass text-forest px-4 py-2 rounded-xl flex items-center gap-2 font-bold text-sm shadow-md">
+                <span class="material-symbols-outlined text-base">shield</span> Zona Segura
+            </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20consultar%20disponibilidad%20para%20este%20fin%20de%20semana.%20¿Tienen%20fechas?" target="_blank"
+                class="btn-whatsapp text-white px-8 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 shadow-xl">
+                <span class="material-symbols-outlined">chat</span>
+                Consultar Disponibilidad
+            </a>
+            <a href="#tarifas"
+                class="glass text-forest px-8 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 hover:bg-white transition">
+                <span class="material-symbols-outlined">payments</span>
+                Ver Tarifas
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-1 text-xs font-medium">
+        <span>Deslizá para conocer más</span>
+        <span class="material-symbols-outlined animate-bounce">keyboard_arrow_down</span>
+    </div>
+</header>
+
+<!-- ============ RESERVA RÁPIDA ============ -->
+<section class="relative z-10 -mt-8 max-w-5xl mx-auto px-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-6 md:p-8 border border-slate-100">
+        <div class="flex items-center gap-2 mb-5">
+            <span class="material-symbols-outlined text-forest text-xl">calendar_month</span>
+            <h3 class="font-bold text-slate-800 text-lg">Consultar disponibilidad al instante</h3>
+            <span class="ml-auto bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full pulse-badge">🔥 Alta demanda</span>
+        </div>
+        <div class="flex flex-col md:flex-row gap-4 items-end">
+            <div class="w-full">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Fecha de Ingreso</label>
+                <input type="date" id="fecha-in" class="w-full p-3.5 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-forest focus:border-forest outline-none font-medium transition">
+            </div>
+            <div class="w-full">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Fecha de Salida</label>
+                <input type="date" id="fecha-out" class="w-full p-3.5 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-forest focus:border-forest outline-none font-medium transition">
+            </div>
+            <div class="w-full">
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2 tracking-wider">Cantidad de Personas</label>
+                <select id="personas" class="w-full p-3.5 rounded-xl border-2 border-slate-200 focus:ring-2 focus:ring-forest focus:border-forest outline-none font-medium transition bg-white">
+                    <option>1-4 personas</option>
+                    <option>5-8 personas</option>
+                    <option>9-12 personas</option>
+                </select>
+            </div>
+            <button onclick="verificarDisponibilidad()"
+                class="btn-whatsapp text-white font-bold px-8 py-3.5 rounded-xl whitespace-nowrap flex items-center gap-2 text-sm w-full md:w-auto justify-center">
+                <span class="material-symbols-outlined text-base">send</span>
+                Consultar ahora
+            </button>
+        </div>
+        <p class="text-xs text-slate-400 mt-3 text-center">🔒 Proceso seguro · Sin compromiso · Respuesta en minutos</p>
+    </div>
+</section>
+
+<!-- ============ SOCIAL PROOF STRIP ============ -->
+<section class="py-10 max-w-5xl mx-auto px-6">
+    <div class="flex flex-wrap justify-center gap-8 items-center text-center">
+        <div class="flex flex-col items-center">
+            <span class="text-3xl font-bold text-forest">+500</span>
+            <span class="text-sm text-slate-500 font-medium">Familias felices</span>
+        </div>
+        <div class="hidden sm:block w-px h-10 bg-slate-200"></div>
+        <div class="flex flex-col items-center">
+            <div class="flex gap-0.5 mb-1">★★★★★</div>
+            <span class="text-sm text-slate-500 font-medium">4.9 / 5 estrellas</span>
+        </div>
+        <div class="hidden sm:block w-px h-10 bg-slate-200"></div>
+        <div class="flex flex-col items-center">
+            <span class="text-3xl font-bold text-forest">3 años</span>
+            <span class="text-sm text-slate-500 font-medium">de experiencia</span>
+        </div>
+        <div class="hidden sm:block w-px h-10 bg-slate-200"></div>
+        <div class="flex flex-col items-center">
+            <span class="text-3xl font-bold text-forest">100%</span>
+            <span class="text-sm text-slate-500 font-medium">Reservas confirmadas</span>
+        </div>
+    </div>
+</section>
+
+<!-- ============ NARRATIVE / EMOTIONAL ============ -->
+<section class="bg-narrative py-24 text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center reveal">
+        <span class="text-sand font-bold tracking-[0.2em] uppercase text-xs mb-6 block">Una experiencia que no vas a olvidar</span>
+        <h2 class="text-4xl md:text-5xl font-serif font-bold mb-8 leading-tight">
+            "Algunos momentos con tu familia<br/><em>merecen un lugar especial."</em>
+        </h2>
+        <p class="text-white/80 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+            Imaginate despertarte escuchando pájaros. El olor a café y la brisa fresca del lago. Tus hijos riendo en la piscina mientras vos descansás en el quincho con música baja. Nada de reuniones. Nada de apuros. Solo presencia.
+        </p>
+        <p class="text-white/70 text-base leading-relaxed max-w-xl mx-auto mb-10">
+            Quinta Paraíso está diseñada para eso: para que salgas recargado, hayas desconectado de verdad, y tengas esos recuerdos que la familia va a mencionar por años.
+        </p>
+        <a href="https://wa.me/595900000000?text=Quiero%20reservar%20en%20Quinta%20Paraíso%20para%20descansar%20con%20mi%20familia!" target="_blank"
+            class="btn-sand text-earth px-10 py-4 rounded-2xl font-bold text-base inline-flex items-center gap-2">
+            <span class="material-symbols-outlined">favorite</span>
+            Quiero vivir esto
+        </a>
+    </div>
+</section>
+
+<!-- ============ INSTALACIONES ============ -->
+<section id="instalaciones" class="py-20 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14 reveal">
+        <span class="text-forest font-bold tracking-widest uppercase text-xs mb-3 block">Lo que incluye tu estadía</span>
+        <h2 class="text-4xl md:text-5xl font-serif font-bold text-slate-800 mb-4">Todo listo para que<br/>solo te preocupes de disfrutar</h2>
+        <p class="text-slate-500 max-w-xl mx-auto text-base">Traé tu comida y tus ganas de descansar. Nosotros nos encargamos del resto.</p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-5 mb-8">
+        <!-- Feature cards -->
+        <div class="glass-green p-6 rounded-2xl reveal flex flex-col items-start gap-3 hover:shadow-lg transition group">
+            <span class="material-symbols-outlined text-forest text-4xl group-hover:scale-110 transition">pool</span>
+            <h3 class="font-bold text-lg text-slate-800">Piscina con Cascada</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Iluminación LED para noches mágicas. Agua limpia y controlada.</p>
+        </div>
+        <div class="glass-green p-6 rounded-2xl reveal flex flex-col items-start gap-3 hover:shadow-lg transition group" style="transition-delay:0.1s">
+            <span class="material-symbols-outlined text-forest text-4xl group-hover:scale-110 transition">bed</span>
+            <h3 class="font-bold text-lg text-slate-800">3 Hab. Climatizadas</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Aire acondicionado, ropa de cama incluida y ambiente confortable.</p>
+        </div>
+        <div class="glass-green p-6 rounded-2xl reveal flex flex-col items-start gap-3 hover:shadow-lg transition group" style="transition-delay:0.2s">
+            <span class="material-symbols-outlined text-forest text-4xl group-hover:scale-110 transition">outdoor_grill</span>
+            <h3 class="font-bold text-lg text-slate-800">Quincho Premium</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Parrilla eléctrica, mesas grandes y espacio para toda la familia.</p>
+        </div>
+        <div class="glass-green p-6 rounded-2xl reveal flex flex-col items-start gap-3 hover:shadow-lg transition group" style="transition-delay:0.3s">
+            <span class="material-symbols-outlined text-forest text-4xl group-hover:scale-110 transition">wifi</span>
+            <h3 class="font-bold text-lg text-slate-800">Wi-Fi Starlink</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Conexión de alta velocidad en toda la quinta. Sin interrupciones.</p>
+        </div>
+        <div class="glass-green p-6 rounded-2xl reveal flex flex-col items-start gap-3 hover:shadow-lg transition group" style="transition-delay:0.4s">
+            <span class="material-symbols-outlined text-forest text-4xl group-hover:scale-110 transition">grass</span>
+            <h3 class="font-bold text-lg text-slate-800">2.000m² Verdes</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Jardín amplio, áreas de juego y naturaleza que te envuelve.</p>
+        </div>
+        <div class="glass-green p-6 rounded-2xl reveal flex flex-col items-start gap-3 hover:shadow-lg transition group" style="transition-delay:0.5s">
+            <span class="material-symbols-outlined text-forest text-4xl group-hover:scale-110 transition">pets</span>
+            <h3 class="font-bold text-lg text-slate-800">Pet Friendly</h3>
+            <p class="text-slate-500 text-sm leading-relaxed">Tus mascotas también son bienvenidas. Espacio seguro y cercado.</p>
+        </div>
+    </div>
+
+    <!-- Main visual grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[260px] mt-10">
+        <div class="md:col-span-2 md:row-span-2 rounded-2xl overflow-hidden relative group cursor-pointer">
+            <img src="https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=1000" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Piscina">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-7">
+                <div>
+                    <h3 class="text-white text-2xl font-serif font-bold">Piscina con Cascada e Iluminación LED</h3>
+                    <p class="text-white/70 text-sm mt-1">El corazón de Quinta Paraíso</p>
+                </div>
+            </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden relative group cursor-pointer">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=600" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Habitaciones">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
+                <h3 class="text-white text-lg font-bold">3 Habitaciones Climatizadas</h3>
+            </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden relative group cursor-pointer">
+            <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Quincho">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-5">
+                <h3 class="text-white text-lg font-bold">Quincho C/ Parrilla Eléctrica</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ GALERÍA SLIDER ============ -->
+<section id="galeria" class="py-16 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-8 reveal">
+            <div>
+                <span class="text-forest font-bold tracking-widest uppercase text-xs mb-2 block">Viví el ambiente</span>
+                <h2 class="text-3xl font-serif font-bold text-slate-800">Galería de la quinta</h2>
+            </div>
+            <div class="flex gap-2">
+                <button id="prev-slide" onclick="slideGallery(-1)" class="w-10 h-10 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center hover:border-forest hover:text-forest transition shadow-sm">
+                    <span class="material-symbols-outlined text-xl">chevron_left</span>
+                </button>
+                <button onclick="slideGallery(1)" class="w-10 h-10 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center hover:border-forest hover:text-forest transition shadow-sm">
+                    <span class="material-symbols-outlined text-xl">chevron_right</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="gallery-container" class="gallery-scroll flex gap-5 overflow-x-auto pb-4">
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=600" class="w-full h-full object-cover" alt="Piscina">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Piscina Principal</span>
+                </div>
+            </div>
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=600" class="w-full h-full object-cover" alt="Jardín">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Jardín y Áreas Verdes</span>
+                </div>
+            </div>
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=600" class="w-full h-full object-cover" alt="Habitación">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Habitación Principal</span>
+                </div>
+            </div>
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600" class="w-full h-full object-cover" alt="Quincho">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Quincho Equipado</span>
+                </div>
+            </div>
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=600" class="w-full h-full object-cover" alt="Atardecer">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Atardeceres Únicos</span>
+                </div>
+            </div>
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=600" class="w-full h-full object-cover" alt="Noche">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Noches Iluminadas</span>
+                </div>
+            </div>
+            <div class="gallery-item w-80 h-60 rounded-2xl overflow-hidden shadow-lg relative">
+                <img src="https://images.unsplash.com/photo-1590523278191-995cbcda646b?q=80&w=600" class="w-full h-full object-cover" alt="Desayuno">
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                    <span class="text-white text-sm font-bold">Momentos de Relax</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TARIFAS ============ -->
+<section id="tarifas" class="bg-forest py-24 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-14 reveal">
+            <span class="text-sand font-bold tracking-widest uppercase text-xs mb-3 block">Transparencia total</span>
+            <h2 class="text-4xl md:text-5xl font-serif font-bold mb-4 text-sand">Tarifas y planes</h2>
+            <p class="text-white/70 max-w-lg mx-auto">Reserva con el 50% de seña. El resto al llegar. Sin cargos ocultos.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-12">
+            <!-- Fin de semana - destacado -->
+            <div class="price-card bg-white text-slate-800 p-8 rounded-3xl shadow-2xl md:scale-105 relative">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+                    <span class="bg-sand text-earth text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">⭐ El más popular</span>
+                </div>
+                <div class="text-center mb-6 mt-2">
+                    <h3 class="text-2xl font-bold mb-1">Fin de Semana Completo</h3>
+                    <p class="text-slate-500 text-sm">Viernes 14:00hs a Domingo 18:00hs</p>
+                </div>
+                <div class="text-center mb-6">
+                    <span class="text-4xl font-serif font-bold text-forest">Gs. 2.500.000</span>
+                    <p class="text-slate-400 text-sm mt-1">para hasta 12 personas</p>
+                </div>
+                <ul class="space-y-3 mb-7 text-sm">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-forest text-base">check_circle</span> 2 noches completas</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-forest text-base">check_circle</span> Ropa de cama incluida</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-forest text-base">check_circle</span> Leña de cortesía</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-forest text-base">check_circle</span> Limpieza post-salida</li>
+                </ul>
+                <button onclick="window.open('https://wa.me/595900000000?text=Hola!%20Quiero%20reservar%20el%20plan%20Fin%20de%20Semana%20Completo%20(Gs.%202.500.000).%20¿Qué%20fechas%20tienen?', '_blank')"
+                    class="btn-forest w-full text-white font-bold py-4 rounded-2xl text-base">
+                    Reservar este plan
+                </button>
+            </div>
+
+            <!-- Entre semana -->
+            <div class="price-card bg-white/10 backdrop-blur border border-white/20 p-8 rounded-3xl text-white">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold mb-1">Día Entre Semana</h3>
+                    <p class="text-white/60 text-sm">Lunes a Jueves (por noche)</p>
+                </div>
+                <div class="text-center mb-6">
+                    <span class="text-4xl font-serif font-bold text-sand">Gs. 800.000</span>
+                    <p class="text-white/50 text-sm mt-1">por noche</p>
+                </div>
+                <ul class="space-y-3 mb-7 text-sm text-white/80">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Acceso completo a la quinta</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Ropa de cama incluida</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Limpieza post-salida</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Tarifas especiales larga estadia</li>
+                </ul>
+                <button onclick="window.open('https://wa.me/595900000000?text=Hola!%20Quiero%20consultar%20disponibilidad%20para%20días%20entre%20semana.', '_blank')"
+                    class="w-full border-2 border-white text-white font-bold py-4 rounded-2xl text-base hover:bg-white hover:text-forest transition">
+                    Consultar Fechas
+                </button>
+            </div>
+
+            <!-- Evento -->
+            <div class="price-card bg-white/10 backdrop-blur border border-white/20 p-8 rounded-3xl text-white">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold mb-1">Evento Especial</h3>
+                    <p class="text-white/60 text-sm">Cumpleaños, reuniones, aniversarios</p>
+                </div>
+                <div class="text-center mb-6">
+                    <span class="text-3xl font-serif font-bold text-sand">A consultar</span>
+                    <p class="text-white/50 text-sm mt-1">según fecha y duración</p>
+                </div>
+                <ul class="space-y-3 mb-7 text-sm text-white/80">
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Capacidad hasta 12 personas</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Quincho y parrilla disponibles</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Músuca permitida hasta medianoche</li>
+                    <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Presupuesto personalizado</li>
+                </ul>
+                <button onclick="window.open('https://wa.me/595900000000?text=Hola!%20Quiero%20consultar%20para%20un%20evento%20especial%20en%20Quinta%20Paraíso.', '_blank')"
+                    class="w-full border-2 border-white text-white font-bold py-4 rounded-2xl text-base hover:bg-white hover:text-forest transition">
+                    Pedir Presupuesto
+                </button>
+            </div>
+        </div>
+
+        <!-- Included items -->
+        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 reveal">
+            <h3 class="font-bold text-sand mb-5 text-base uppercase tracking-wider">✓ Incluido en todos los planes</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-white/80 text-sm">
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Ropa de cama</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Leña para parrilla</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Limpieza post-salida</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Wi-Fi Starlink</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Aire acondicionado</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Zona segura y privada</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Estacionamiento gratis</div>
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sand text-base">check_circle</span> Soporte 24hs por WhatsApp</div>
+            </div>
+        </div>
+
+        <p class="text-center text-white/50 text-xs mt-6">* Seña reembolsable por daños: Gs. 500.000 · No incluye toallas · Pago confirmado 50% por transferencia</p>
+    </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section id="resenas" class="py-20 bg-light">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-14 reveal">
+            <span class="text-forest font-bold tracking-widest uppercase text-xs mb-3 block">Lo que dicen nuestros huéspedes</span>
+            <h2 class="text-4xl font-serif font-bold text-slate-800 mb-3">+500 familias ya vivieron la experiencia</h2>
+            <div class="flex items-center justify-center gap-2">
+                <div class="flex">★★★★★</div>
+                <span class="font-bold text-forest">4.9</span>
+                <span class="text-slate-400 text-sm">· 127 reseñas verificadas</span>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="testi-card bg-white p-7 rounded-2xl shadow-md border border-slate-100 reveal">
+                <div class="flex mb-3">★★★★★</div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-5">"Pasamos el fin de semana y fue increíble. La piscina espectacular, las habitaciones limpísimas y el quincho perfecto para el asado. Ya reservamos para el mes que viene."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center font-bold text-forest text-sm">ML</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">María Laura R.</div>
+                        <div class="text-xs text-slate-400">Asunción · Febrero 2025</div>
+                    </div>
+                    <span class="ml-auto bg-green-50 text-green-600 text-xs font-bold px-2 py-1 rounded-full">✓ Verificado</span>
+                </div>
+            </div>
+
+            <div class="testi-card bg-white p-7 rounded-2xl shadow-md border border-slate-100 reveal" style="transition-delay:0.1s">
+                <div class="flex mb-3">★★★★★</div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-5">"Lugar increíble. Fuimos con los chicos y nuestro perro, y todos estaban encantados. El lugar es seguro, privado y limpio. El wifi Starlink funcionó perfecto todo el tiempo."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center font-bold text-forest text-sm">CP</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">Carlos y Patricia M.</div>
+                        <div class="text-xs text-slate-400">Fernando de la Mora · Enero 2025</div>
+                    </div>
+                    <span class="ml-auto bg-green-50 text-green-600 text-xs font-bold px-2 py-1 rounded-full">✓ Verificado</span>
+                </div>
+            </div>
+
+            <div class="testi-card bg-white p-7 rounded-2xl shadow-md border border-slate-100 reveal" style="transition-delay:0.2s">
+                <div class="flex mb-3">★★★★★</div>
+                <p class="text-slate-600 text-sm leading-relaxed mb-5">"Celebramos el cumpleaños de mi mamá y fue perfecto. El espacio es amplio, elegante y tiene todo lo que necesitás. La atención por WhatsApp fue rápida y muy amable."</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-forest/10 flex items-center justify-center font-bold text-forest text-sm">SG</div>
+                    <div>
+                        <div class="font-bold text-sm text-slate-800">Sofía G.</div>
+                        <div class="text-xs text-slate-400">San Lorenzo · Diciembre 2024</div>
+                    </div>
+                    <span class="ml-auto bg-green-50 text-green-600 text-xs font-bold px-2 py-1 rounded-full">✓ Verificado</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA after testimonials -->
+        <div class="text-center mt-12 reveal">
+            <p class="text-slate-500 mb-5 text-base">¿Listo para crear tu propio recuerdo?</p>
+            <a href="https://wa.me/595900000000?text=Hola!%20Leí%20las%20reseñas%20y%20quiero%20reservar%20en%20Quinta%20Paraíso!" target="_blank"
+                class="btn-whatsapp text-white px-10 py-4 rounded-2xl font-bold text-base inline-flex items-center gap-2">
+                <span class="material-symbols-outlined">chat</span>
+                Consultar disponibilidad ahora
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ UBICACIÓN ============ -->
+<section class="py-20 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-10 reveal">
+            <span class="material-symbols-outlined text-4xl text-forest mb-2 block">pin_drop</span>
+            <h2 class="text-3xl font-serif font-bold text-forest mb-3">Ubicación Privilegiada</h2>
+            <p class="text-slate-500 max-w-xl mx-auto text-base">A solo 5 minutos del centro de San Bernardino y a 2 cuadras de la ruta principal.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 items-center reveal">
+            <div>
+                <div class="space-y-4 mb-7">
+                    <div class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <span class="material-symbols-outlined text-forest text-xl mt-0.5">directions_car</span>
+                        <div>
+                            <div class="font-bold text-sm text-slate-800">Acceso fácil para todos</div>
+                            <div class="text-slate-500 text-sm">95% asfalto. Apto para todo tipo de vehículos.</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <span class="material-symbols-outlined text-forest text-xl mt-0.5">shield</span>
+                        <div>
+                            <div class="font-bold text-sm text-slate-800">Zona residencial segura</div>
+                            <div class="text-slate-500 text-sm">Barrio tranquilo con vigilancia en los alrededores.</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <span class="material-symbols-outlined text-forest text-xl mt-0.5">local_mall</span>
+                        <div>
+                            <div class="font-bold text-sm text-slate-800">Todo cerca</div>
+                            <div class="text-slate-500 text-sm">Supermercados, playas y restaurantes a minutos.</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/595900000000?text=Hola!%20Quisiera%20saber%20la%20dirección%20exacta%20de%20Quinta%20Paraíso." target="_blank"
+                    class="btn-forest text-white px-6 py-3.5 rounded-xl font-bold text-sm inline-flex items-center gap-2">
+                    <span class="material-symbols-outlined text-base">map</span>
+                    Recibir dirección exacta
+                </a>
+            </div>
+            <div class="w-full h-72 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28860.52843468641!2d-57.3079774!3d-25.3111425!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945dacbcbb1b1c35%3A0xe7498cbf1b7f212f!2sSan%20Bernardino%2C%20Paraguay!5e0!3m2!1ses!2sus!4v1680000000000!5m2!1ses!2sus" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="py-20 max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12 reveal">
+        <span class="text-forest font-bold tracking-widest uppercase text-xs mb-3 block">Preguntas frecuentes</span>
+        <h2 class="text-4xl font-serif font-bold text-slate-800">¿Tenés dudas? Aquí las resolvemos</h2>
+    </div>
+
+    <div class="space-y-3 reveal">
+        <!-- FAQ Items -->
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿Cuáles son los horarios de entrada y salida?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">Check-in: <strong>Viernes a partir de las 14:00hs.</strong> Check-out: <strong>Domingo hasta las 18:00hs.</strong> Para días entre semana, el horario de entrada es 14:00hs y salida 12:00hs. Si necesitás horarios especiales, consultanos y coordinamos.</p>
+            </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿Se permiten mascotas?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">¡Sí! Somos totalmente <strong>pet friendly</strong>. Tus mascotas son bienvenidas. La quinta está cercada y es segura para ellas. Solo pedimos que se informe al hacer la reserva y que el huésped sea responsable por cualquier daño.</p>
+            </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿Se pueden hacer eventos y celebraciones?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">Sí, se permiten celebraciones familiares (cumpleaños, aniversarios, reuniones). La música está permitida hasta las <strong>00:00hs</strong>. No se permiten eventos masivos ni generadores externos. Capacidad máxima: 12 personas.</p>
+            </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿Cómo se confirma la reserva y cuánto es la seña?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">La reserva se confirma con el <strong>50% de seña</strong> vía transferencia bancaria. El saldo restante se abona al llegar. Además, se cobra una garantía reembolsable de <strong>Gs. 500.000</strong> por posibles daños, que se devuelve al salir.</p>
+            </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿Qué métodos de pago aceptan?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">Aceptamos <strong>transferencia bancaria</strong> (Bancard/PagoMóvil) y efectivo en guaraníes. Para la seña es obligatorio transferencia. Te enviamos los datos bancarios por WhatsApp al confirmar.</p>
+            </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿Qué reglas debemos seguir?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">Reglas básicas: respetar el límite de personas (12 máx), no fumar dentro de las habitaciones, música hasta medianoche, cuidar las instalaciones y dejar los espacios comunes ordenados. El incumplimiento puede resultar en el descuento de la garantía.</p>
+            </div>
+        </div>
+
+        <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            <button onclick="toggleFaq(this)" class="w-full p-5 text-left flex justify-between items-center font-bold text-slate-800 hover:text-forest transition">
+                <span>¿La piscina es segura para niños?</span>
+                <span class="faq-icon material-symbols-outlined text-forest flex-shrink-0">add</span>
+            </button>
+            <div class="faq-content px-5 text-slate-500 text-sm leading-relaxed">
+                <p class="pb-5">Sí, la piscina tiene áreas de diferente profundidad y está mantenida con el nivel correcto de cloro. Sin embargo, <strong>la supervisión de menores siempre es responsabilidad de los adultos</strong>. No contamos con guardavidas.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-10 reveal">
+        <p class="text-slate-400 text-sm mb-4">¿Otra consulta? Estamos en WhatsApp</p>
+        <a href="https://wa.me/595900000000?text=Hola!%20Tengo%20una%20consulta%20sobre%20Quinta%20Paraíso." target="_blank"
+            class="btn-whatsapp text-white px-8 py-4 rounded-2xl font-bold text-base inline-flex items-center gap-2">
+            <span class="material-symbols-outlined">chat</span>
+            Escribirnos ahora
+        </a>
+    </div>
+</section>
+
+<!-- ============ FOOTER CTA ============ -->
+<section class="bg-forest py-16 text-white text-center">
+    <div class="max-w-2xl mx-auto px-6">
+        <h2 class="text-4xl font-serif font-bold mb-4 text-sand">¿Esperando qué?</h2>
+        <p class="text-white/70 mb-8 text-lg">Los fines de semana se llenan rápido. Asegurá tu fecha hoy mismo.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20reservar%20en%20Quinta%20Paraíso.%20¿Qué%20fechas%20tienen%20disponibles?" target="_blank"
+                class="btn-whatsapp text-white px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl">
+                <span class="material-symbols-outlined text-2xl">chat</span>
+                Reservar por WhatsApp
+            </a>
+            <a href="tel:+595900000000"
+                class="bg-white/10 border-2 border-white/30 text-white px-10 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:bg-white/20 transition">
+                <span class="material-symbols-outlined text-2xl">call</span>
+                Llamar ahora
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-earth text-white/50 py-10 text-center text-sm">
+    <div class="mb-3 text-2xl font-serif text-white/40">Quinta Paraíso</div>
+    <p>ESTA QUINTA NO EXISTE , ES UNA DEMO CREADA PARA MOSTRAR LOS SERVICIOS QUE PUEDE OFRECER AS BIT
+
+    </p>
+    <p class="mt-2 text-xs">🔒 Zona segura · Clientes verificados · Pagos protegidos</p>
+    <p class="mt-2 text-[11px] text-slate-400">Demo web creada por AS BIT · No es un sitio real de reserva</p>
+</footer>
+
+<!-- ============ MOBILE BOTTOM BAR ============ -->
+<div class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 z-50 md:hidden p-3 flex justify-between items-center shadow-[0_-8px_20px_rgba(0,0,0,0.08)]">
+    <div>
+        <span class="block text-xs text-slate-400 font-medium uppercase tracking-wider">¿Listo para reservar?</span>
+        <span class="text-forest font-serif font-bold text-base">Respuesta inmediata 🌿</span>
+    </div>
+    <div class="flex gap-2">
+        <a href="tel:+595900000000"
+            class="bg-slate-100 text-slate-700 px-4 py-2.5 rounded-full font-bold text-sm flex items-center gap-1.5 border border-slate-200">
+            <span class="material-symbols-outlined text-base">call</span>
+        </a>
+        <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20reservar%20en%20Quinta%20Paraíso.%20¿Tienen%20disponibilidad?" target="_blank"
+            class="btn-whatsapp text-white px-5 py-2.5 rounded-full font-bold text-sm flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-base">chat</span> WhatsApp
+        </a>
+    </div>
+</div>
+
+<!-- ============ FLOATING BUTTON (desktop) ============ -->
+<div class="hidden md:block fixed bottom-8 right-8 z-50">
+    <a href="https://wa.me/595900000000?text=Hola!%20Quiero%20reservar%20en%20Quinta%20Paraíso!" target="_blank"
+        class="float-wa btn-whatsapp text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl">
+        <span class="material-symbols-outlined text-3xl">chat</span>
+    </a>
+</div>
+
+<script>
+    // FAQ Toggle
+    function toggleFaq(btn) {
+        const item = btn.closest('.faq-item');
+        const content = item.querySelector('.faq-content');
+        const isOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.faq-item.open').forEach(el => {
+            el.classList.remove('open');
+            el.querySelector('.faq-content').classList.remove('open');
+        });
+        if (!isOpen) {
+            item.classList.add('open');
+            content.classList.add('open');
+        }
+    }
+
+    // Gallery slider
+    function slideGallery(dir) {
+        const container = document.getElementById('gallery-container');
+        container.scrollBy({ left: dir * 320, behavior: 'smooth' });
+    }
+
+    // Date availability
+    function verificarDisponibilidad() {
+        const checkin = document.getElementById('fecha-in').value;
+        const checkout = document.getElementById('fecha-out').value;
+        const personas = document.getElementById('personas').value;
+        if (!checkin || !checkout) {
+            alert("Por favor seleccioná las fechas de ingreso y salida.");
+            return;
+        }
+        const d1 = new Date(checkin), d2 = new Date(checkout);
+        const nights = Math.round((d2 - d1) / (1000*60*60*24));
+        if (nights <= 0) { alert("La fecha de salida debe ser posterior a la de entrada."); return; }
+        const msg = `Hola Quinta Paraíso! 🌿 Me gustaría consultar disponibilidad para:\n\n📅 Ingreso: *${checkin}*\n📅 Salida: *${checkout}*\n🌙 Noches: *${nights}*\n👥 Personas: *${personas}*\n\n¿Tienen disponibilidad para esas fechas?`;
+        window.open(`https://wa.me/595900000000?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    // Set min dates
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('fecha-in').min = today;
+    document.getElementById('fecha-out').min = today;
+    document.getElementById('fecha-in').addEventListener('change', function() {
+        document.getElementById('fecha-out').min = this.value;
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => entry.target.classList.add('visible'), i * 60);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

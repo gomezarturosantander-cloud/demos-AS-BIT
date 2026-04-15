@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Salon Urbano | Relajación y Belleza en Asunción, Paraguay</title>
+    <meta name="description" content="Salon Urbano en Asunción, Paraguay. Demo creada por AS BIT. Masajes relajantes, tratamientos faciales, manicure, pedicure y más."/>
+    <meta name="keywords" content="spa Asunción, salón de belleza Paraguay, masajes relajantes, tratamientos faciales, manicure pedicure Asunción"/>
+    <meta property="og:title" content="Salon Urbano | Relajación y Belleza en Asunción"/>
+    <meta property="og:description" content="Demo de sitio web creada por AS BIT. Viví una experiencia de lujo y bienestar. Masajes, faciales, manicure y más en el corazón de Asunción."/>
+    <meta property="og:type" content="website"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sand: { 50: '#FDFAF6', 100: '#F8F1E8', 200: '#F0E2D0', 300: '#E5CDB0' },
+                        olive: { 400: '#8B9A6B', 500: '#6B7F4E', 600: '#566840' },
+                        gold: { 300: '#D4B896', 400: '#C9A87C', 500: '#B8956A' },
+                        dark: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Animations */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-in { opacity: 0; transition: opacity 1s ease; }
+        .fade-in.visible { opacity: 1; }
+
+        /* Smooth button hover */
+        .btn-hover { transition: all 0.3s ease; }
+        .btn-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .btn-hover:active { transform: translateY(0); }
+
+        /* Card hover */
+        .card-hover { transition: all 0.4s ease; }
+        .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        /* Gallery grid */
+        .gallery-item { overflow: hidden; }
+        .gallery-item img { transition: transform 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.08); }
+
+        /* Star rating */
+        .star { color: #C9A87C; }
+
+        /* Navbar blur */
+        .nav-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+        /* Floating WhatsApp pulse */
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .whatsapp-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: #25D366;
+            animation: pulse-ring 2s ease-out infinite;
+            z-index: -1;
+        }
+
+        /* Mobile bottom bar */
+        .mobile-bar { box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #F8F1E8; }
+        ::-webkit-scrollbar-thumb { background: #C9A87C; border-radius: 3px; }
+
+        /* Hero overlay */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(26,26,26,0.65) 0%, rgba(26,26,26,0.3) 50%, rgba(107,127,78,0.2) 100%);
+        }
+
+        /* Section divider */
+        .section-divider {
+            width: 60px; height: 2px;
+            background: linear-gradient(90deg, #C9A87C, #D4B896);
+        }
+
+        /* Form focus */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #8B9A6B;
+            box-shadow: 0 0 0 3px rgba(139,154,107,0.15);
+        }
+
+        html { scroll-padding-top: 80px; }
+    </style>
+</head>
+<body class="bg-sand-50 font-sans text-dark antialiased">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="#" class="flex items-center gap-2">
+                    <span class="font-serif text-xl md:text-2xl font-semibold tracking-wide text-white" id="nav-logo">Salon <span class="text-gold-400">Urbano</span></span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#servicios" class="nav-link text-sm font-medium tracking-wide text-white/80 hover:text-gold-400 transition-colors">Servicios</a>
+                    <a href="#galeria" class="nav-link text-sm font-medium tracking-wide text-white/80 hover:text-gold-400 transition-colors">Galería</a>
+                    <a href="#testimonios" class="nav-link text-sm font-medium tracking-wide text-white/80 hover:text-gold-400 transition-colors">Testimonios</a>
+                    <a href="#reservas" class="nav-link text-sm font-medium tracking-wide text-white/80 hover:text-gold-400 transition-colors">Reservas</a>
+                    <a href="#ubicacion" class="nav-link text-sm font-medium tracking-wide text-white/80 hover:text-gold-400 transition-colors">Ubicación</a>
+                    <a href="javascript:void(0)" class="btn-hover bg-gold-400 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gold-500">
+                        Reservar Ahora
+                    </a>
+                </div>
+                <button id="menu-toggle" class="md:hidden text-white p-2" aria-label="Menú">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark/95 nav-blur border-t border-white/10">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#servicios" class="mobile-link block text-white/80 hover:text-gold-400 py-2 text-sm font-medium">Servicios</a>
+                <a href="#galeria" class="mobile-link block text-white/80 hover:text-gold-400 py-2 text-sm font-medium">Galería</a>
+                <a href="#testimonios" class="mobile-link block text-white/80 hover:text-gold-400 py-2 text-sm font-medium">Testimonios</a>
+                <a href="#reservas" class="mobile-link block text-white/80 hover:text-gold-400 py-2 text-sm font-medium">Reservas</a>
+                <a href="#ubicacion" class="mobile-link block text-white/80 hover:text-gold-400 py-2 text-sm font-medium">Ubicación</a>
+                <a href="javascript:void(0)" class="block bg-gold-400 text-white text-center px-5 py-2.5 rounded-full text-sm font-semibold mt-2">Reservar por WhatsApp (demo)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=1920&q=80" alt="Spa relajante" class="w-full h-full object-cover" loading="eager"/>
+        </div>
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative z-10 text-center px-4 max-w-3xl mx-auto">
+            <p class="fade-in text-gold-300 text-sm md:text-base font-medium tracking-[0.3em] uppercase mb-4">Asunción, Paraguay</p>
+            <h1 class="fade-in font-serif text-4xl sm:text-5xl md:text-7xl text-white font-semibold leading-tight mb-6" style="transition-delay:0.2s">
+                Relajación y belleza<br/><span class="italic text-gold-300">en un solo lugar</span>
+            </h1>
+            <p class="fade-in text-white/70 text-base md:text-lg max-w-xl mx-auto mb-10 font-light" style="transition-delay:0.4s">
+                Viví una experiencia de lujo y bienestar. Tratamientos exclusivos que renuevan tu cuerpo y mente.
+            </p>
+            <div class="fade-in flex flex-col sm:flex-row gap-4 justify-center" style="transition-delay:0.6s">
+                <a href="javascript:void(0)" class="btn-hover bg-gold-400 text-white px-8 py-4 rounded-full font-semibold text-sm md:text-base flex items-center justify-center gap-2 hover:bg-gold-500">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Reservar por WhatsApp (demo)
+                </a>
+                <a href="#servicios" class="btn-hover bg-white/10 backdrop-blur text-white px-8 py-4 rounded-full font-semibold text-sm md:text-base border border-white/20 hover:bg-white/20">
+                    Ver Servicios
+                </a>
+            </div>
+        </div>
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-20 md:py-28 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <p class="text-olive-400 text-sm font-medium tracking-[0.2em] uppercase mb-3">Nuestros Servicios</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold text-dark mb-4">Tratamientos <span class="italic text-olive-500">Exclusivos</span></h2>
+                <div class="section-divider mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Service 1 -->
+                <div class="card-hover fade-up bg-white rounded-2xl overflow-hidden shadow-sm">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=600&q=80" alt="Masajes relajantes" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Masajes Relajantes</h3>
+                        <p class="text-dark/60 text-sm leading-relaxed mb-4">Liberá tensiones con nuestros masajes terapéuticos y descontracturantes. Una experiencia profunda de relajación.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-olive-500 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-olive-600">
+                            Reservar
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="card-hover fade-up bg-white rounded-2xl overflow-hidden shadow-sm" style="transition-delay:0.1s">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80" alt="Tratamientos faciales" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Tratamientos Faciales</h3>
+                        <p class="text-dark/60 text-sm leading-relaxed mb-4">Rejuvenecé tu piel con tratamientos faciales avanzados. Limpieza profunda, hidratación y luminosidad.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-olive-500 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-olive-600">
+                            Reservar
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div class="card-hover fade-up bg-white rounded-2xl overflow-hidden shadow-sm" style="transition-delay:0.2s">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80" alt="Manicure y pedicure" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Manicure & Pedicure</h3>
+                        <p class="text-dark/60 text-sm leading-relaxed mb-4">Uñas perfectas con técnicas de última tendencia. Esmaltado semipermanente, gel y nail art.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-olive-500 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-olive-600">
+                            Reservar
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Service 4 -->
+                <div class="card-hover fade-up bg-white rounded-2xl overflow-hidden shadow-sm">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Tratamientos capilares" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Tratamientos Capilares</h3>
+                        <p class="text-dark/60 text-sm leading-relaxed mb-4">Revitalizá tu cabello con tratamientos de hidratación profunda, keratina y colorimetría profesional.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-olive-500 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-olive-600">
+                            Reservar
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Service 5 -->
+                <div class="card-hover fade-up bg-white rounded-2xl overflow-hidden shadow-sm" style="transition-delay:0.1s">
+                    <div class="h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80" alt="Depilación" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-semibold mb-2">Depilación</h3>
+                        <p class="text-dark/60 text-sm leading-relaxed mb-4">Piel suave y libre de vello con nuestras técnicas de depilación profesional. Cera, láser y más.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-olive-500 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-olive-600">
+                            Reservar
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <!-- Promo Card -->
+                <div class="card-hover fade-up bg-gradient-to-br from-olive-500 to-olive-600 rounded-2xl overflow-hidden shadow-sm text-white flex flex-col justify-center" style="transition-delay:0.2s">
+                    <div class="p-8 text-center">
+                        <p class="text-white/70 text-xs font-medium tracking-[0.2em] uppercase mb-3">Oferta Especial</p>
+                        <h3 class="font-serif text-2xl font-semibold mb-3">Día de Relajación</h3>
+                        <p class="text-white/80 text-sm leading-relaxed mb-2">Masaje + Facial + Manicure</p>
+                        <p class="text-gold-300 font-serif text-3xl font-bold mb-1">Gs. 450.000</p>
+                        <p class="text-white/50 text-xs line-through mb-6">Gs. 600.000</p>
+                        <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4">Cupos limitados</span>
+                        <br/>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-gold-400 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-gold-500">
+                            Reservar (demo)
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAL -->
+    <section class="py-20 md:py-28 bg-sand-100 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <p class="text-olive-400 text-sm font-medium tracking-[0.2em] uppercase mb-3">Por Qué Elegirnos</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold text-dark mb-4">Tu Bienestar, <span class="italic text-olive-500">Nuestra Pasión</span></h2>
+                <div class="section-divider mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+                <div class="fade-up text-center p-6">
+                    <div class="w-16 h-16 bg-olive-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Atención Personalizada</h3>
+                    <p class="text-dark/50 text-sm">Cada tratamiento adaptado a tus necesidades</p>
+                </div>
+                <div class="fade-up text-center p-6" style="transition-delay:0.1s">
+                    <div class="w-16 h-16 bg-olive-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Profesionales Certificados</h3>
+                    <p class="text-dark/50 text-sm">Equipo experto con años de experiencia</p>
+                </div>
+                <div class="fade-up text-center p-6" style="transition-delay:0.2s">
+                    <div class="w-16 h-16 bg-olive-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Ambiente Relajante</h3>
+                    <p class="text-dark/50 text-sm">Un oasis de calma en el corazón de Asunción</p>
+                </div>
+                <div class="fade-up text-center p-6" style="transition-delay:0.3s">
+                    <div class="w-16 h-16 bg-olive-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold mb-2">Productos Premium</h3>
+                    <p class="text-dark/50 text-sm">Solo marcas de alta calidad internacional</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA -->
+    <section id="galeria" class="py-20 md:py-28 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <p class="text-olive-400 text-sm font-medium tracking-[0.2em] uppercase mb-3">Galería</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold text-dark mb-4">Nuestro <span class="italic text-olive-500">Espacio</span></h2>
+                <div class="section-divider mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                <div class="gallery-item rounded-xl md:rounded-2xl overflow-hidden col-span-2 row-span-2 fade-up">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbec6d?auto=format&fit=crop&w=800&q=80" alt="Interior del spa" class="w-full h-full object-cover min-h-[280px] md:min-h-[400px]" loading="lazy"/>
+                </div>
+                <div class="gallery-item rounded-xl md:rounded-2xl overflow-hidden fade-up" style="transition-delay:0.1s">
+                    <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=400&q=80" alt="Masaje spa" class="w-full h-full object-cover min-h-[130px] md:min-h-[190px]" loading="lazy"/>
+                </div>
+                <div class="gallery-item rounded-xl md:rounded-2xl overflow-hidden fade-up" style="transition-delay:0.15s">
+                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80" alt="Productos spa" class="w-full h-full object-cover min-h-[130px] md:min-h-[190px]" loading="lazy"/>
+                </div>
+                <div class="gallery-item rounded-xl md:rounded-2xl overflow-hidden fade-up" style="transition-delay:0.2s">
+                    <img src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?auto=format&fit=crop&w=400&q=80" alt="Tratamiento facial" class="w-full h-full object-cover min-h-[130px] md:min-h-[190px]" loading="lazy"/>
+                </div>
+                <div class="gallery-item rounded-xl md:rounded-2xl overflow-hidden fade-up" style="transition-delay:0.25s">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=400&q=80" alt="Ambiente relajante" class="w-full h-full object-cover min-h-[130px] md:min-h-[190px]" loading="lazy"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="py-20 md:py-28 bg-sand-100 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <p class="text-olive-400 text-sm font-medium tracking-[0.2em] uppercase mb-3">Testimonios</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold text-dark mb-4">Lo Que Dicen <span class="italic text-olive-500">Nuestras Clientas</span></h2>
+                <div class="section-divider mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="fade-up bg-white rounded-2xl p-8 shadow-sm">
+                    <div class="flex gap-1 mb-4">
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/70 text-sm leading-relaxed italic mb-6">"Increíble experiencia. El masaje fue el mejor que he tenido. El ambiente es tan relajante que no quería irme. ¡Totalmente recomendado!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-olive-500/10 rounded-full flex items-center justify-center">
+                            <span class="font-serif text-olive-500 font-semibold">MA</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">María Alejandra</p>
+                            <p class="text-dark/40 text-xs">Cliente frecuente</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-up bg-white rounded-2xl p-8 shadow-sm" style="transition-delay:0.1s">
+                    <div class="flex gap-1 mb-4">
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/70 text-sm leading-relaxed italic mb-6">"Los tratamientos faciales son de otro nivel. Mi piel quedó radiante. El equipo es muy profesional y atento. Sin duda mi spa favorito en Asunción."</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-olive-500/10 rounded-full flex items-center justify-center">
+                            <span class="font-serif text-olive-500 font-semibold">CR</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Carolina Romero</p>
+                            <p class="text-dark/40 text-xs">Cliente desde 2023</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-up bg-white rounded-2xl p-8 shadow-sm" style="transition-delay:0.2s">
+                    <div class="flex gap-1 mb-4">
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-5 h-5 star" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="text-dark/70 text-sm leading-relaxed italic mb-6">"Fui por el paquete de relajación y fue una experiencia increíble. El lugar es hermoso, las chicas son un amor. Voy a volver cada mes, ¡seguro!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-olive-500/10 rounded-full flex items-center justify-center">
+                            <span class="font-serif text-olive-500 font-semibold">LG</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">Laura González</p>
+                            <p class="text-dark/40 text-xs">Primera visita</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="py-16 md:py-20 bg-dark px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=1920&q=40" alt="" class="w-full h-full object-cover" loading="lazy"/>
+        </div>
+        <div class="relative z-10 max-w-3xl mx-auto text-center fade-up">
+            <p class="text-gold-300 text-sm font-medium tracking-[0.2em] uppercase mb-3">No Esperes Más</p>
+            <h2 class="font-serif text-3xl md:text-5xl font-semibold text-white mb-4">Reservá Tu Momento <span class="italic text-gold-300">de Bienestar</span></h2>
+            <p class="text-white/60 mb-8 text-sm md:text-base">Cupos limitados. Agendá tu cita hoy y regalate la experiencia que merecés.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="javascript:void(0)" class="btn-hover bg-gold-400 text-white px-8 py-4 rounded-full font-semibold text-sm md:text-base flex items-center justify-center gap-2 hover:bg-gold-500">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    Reservar (Demo)
+                </a>
+                <a href="#reservas" class="btn-hover bg-white/10 backdrop-blur text-white px-8 py-4 rounded-full font-semibold text-sm md:text-base border border-white/20 hover:bg-white/20">
+                    Completar Formulario
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESERVAS -->
+    <section id="reservas" class="py-20 md:py-28 px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <p class="text-olive-400 text-sm font-medium tracking-[0.2em] uppercase mb-3">Reservas</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold text-dark mb-4">Agendá Tu <span class="italic text-olive-500">Cita</span></h2>
+                <div class="section-divider mx-auto"></div>
+                <p class="text-dark/50 text-sm mt-4 max-w-md mx-auto">Completá el formulario y nos comunicaremos contigo para confirmar tu reserva.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+                <!-- Form -->
+                <div class="fade-up bg-white rounded-2xl p-8 shadow-sm">
+                    <form name="reservas" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="reservation-form">
+                        <input type="hidden" name="form-name" value="reservas"/>
+                        <p style="display:none"><label>No completar: <input name="bot-field"/></label></p>
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1.5">Nombre completo</label>
+                                <input type="text" name="nombre" required placeholder="Tu nombre" class="w-full px-4 py-3 rounded-xl border border-sand-200 bg-sand-50 text-sm transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1.5">Teléfono</label>
+                                <input type="tel" name="telefono" required placeholder="+595 981 000 000" class="w-full px-4 py-3 rounded-xl border border-sand-200 bg-sand-50 text-sm transition-all"/>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1.5">Servicio</label>
+                                <select name="servicio" required class="w-full px-4 py-3 rounded-xl border border-sand-200 bg-sand-50 text-sm transition-all appearance-none">
+                                    <option value="">Seleccioná un servicio</option>
+                                    <option value="Masaje relajante">Masaje Relajante</option>
+                                    <option value="Tratamiento facial">Tratamiento Facial</option>
+                                    <option value="Manicure y pedicure">Manicure & Pedicure</option>
+                                    <option value="Tratamiento capilar">Tratamiento Capilar</option>
+                                    <option value="Depilación">Depilación</option>
+                                    <option value="Paquete Día de Relajación">Paquete Día de Relajación</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-dark/70 mb-1.5">Fecha preferida</label>
+                                <input type="date" name="fecha" required class="w-full px-4 py-3 rounded-xl border border-sand-200 bg-sand-50 text-sm transition-all"/>
+                            </div>
+                            <button type="submit" class="btn-hover w-full bg-olive-500 text-white py-3.5 rounded-xl font-semibold text-sm hover:bg-olive-600 transition-colors">
+                                Enviar Solicitud de Reserva
+                            </button>
+                        </div>
+                    </form>
+                    <div id="form-success" class="hidden text-center py-8">
+                        <div class="w-16 h-16 bg-olive-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        </div>
+                        <h3 class="font-serif text-xl font-semibold mb-2">¡Solicitud Enviada!</h3>
+                        <p class="text-dark/50 text-sm">Nos comunicaremos contigo pronto para confirmar tu cita.</p>
+                    </div>
+                </div>
+                <div class="fade-up space-y-6" style="transition-delay:0.15s">
+                    <div class="bg-olive-500/5 rounded-2xl p-8 border border-olive-500/10">
+                        <h3 class="font-serif text-xl font-semibold mb-3">Reserva (Demo)</h3>
+                        <p class="text-dark/50 text-sm leading-relaxed mb-6">Esta es una página de demostración creada por AS BIT. Los formularios no envían información real.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-[#25D366] text-white px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-[#1fb855]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            Contacto (Demo)
+                        </a>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm">
+                        <h3 class="font-serif text-xl font-semibold mb-3">Llamanos (Demo)</h3>
+                        <p class="text-dark/50 text-sm leading-relaxed mb-4">Esta es una página de demostración. Los datos de contacto no son reales.</p>
+                        <a href="javascript:void(0)" class="btn-hover inline-flex items-center gap-2 bg-dark text-white px-6 py-3.5 rounded-xl font-semibold text-sm hover:bg-dark/80">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            Contacto (Demo)
+                        </a>
+                    </div>
+                    <div class="bg-gold-400/10 rounded-2xl p-6 border border-gold-400/20 text-center">
+                        <p class="text-gold-500 font-serif font-semibold text-lg mb-1">Página de Demostración</p>
+                        <p class="text-dark/50 text-sm">Creada por AS BIT - <span class="text-gold-500">www.asbit.com.py</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN -->
+    <section id="ubicacion" class="py-20 md:py-28 bg-sand-100 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 fade-up">
+                <p class="text-olive-400 text-sm font-medium tracking-[0.2em] uppercase mb-3">Ubicación</p>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold text-dark mb-4">Visitanos en <span class="italic text-olive-500">Asunción</span></h2>
+                <div class="section-divider mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                <div class="fade-up rounded-2xl overflow-hidden shadow-sm h-[300px] md:h-[400px]">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57888.69025451465!2d-57.6520775!3d-25.2637399!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945da8bb87853e71%3A0x82c1cb3540e2bd6f!2sAsunci%C3%B3n%2C%20Paraguay!5e0!3m2!1ses-419!2spy!4v1700000000000!5m2!1ses-419!2spy" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Salon Urbano (Demo)"></iframe>
+                </div>
+                <div class="fade-up space-y-6" style="transition-delay:0.15s">
+                    <div class="bg-white rounded-2xl p-8 shadow-sm">
+                        <h3 class="font-serif text-xl font-semibold mb-4">Información de Contacto</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-olive-500/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm">Dirección</p>
+                                    <p class="text-dark/50 text-sm">Avda. Mariscal López esq. Cruz del Chaco, Asunción, Paraguay</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-olive-500/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm">Teléfono</p>
+                                    <a href="javascript:void(0)" class="text-olive-500 text-sm hover:underline">+595 981 000 000 (demo)</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-10 h-10 bg-olive-500/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <svg class="w-5 h-5 text-olive-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-sm">Horarios</p>
+                                    <p class="text-dark/50 text-sm">Lunes a Viernes: 8:00 – 20:00</p>
+                                    <p class="text-dark/50 text-sm">Sábados: 9:00 – 18:00</p>
+                                    <p class="text-dark/50 text-sm">Domingos: 10:00 – 14:00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="javascript:void(0)" class="btn-hover block bg-olive-500 text-white text-center px-6 py-4 rounded-2xl font-semibold text-sm hover:bg-olive-600">
+                        Reservar (Demo)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white pt-16 pb-8 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                <div>
+                    <h3 class="font-serif text-2xl font-semibold mb-4">Salon <span class="text-gold-400">Urbano</span></h3>
+                    <p class="text-white/50 text-xs mb-2">Demo creada por AS BIT</p>
+                    <p class="text-white/50 text-sm leading-relaxed mb-6">Tu oasis de relajación y belleza en el corazón de Asunción. Viví una experiencia de lujo y bienestar.</p>
+                    <div class="flex gap-3">
+                        <a href="#" aria-label="Instagram" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-400/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <a href="#" aria-label="Facebook" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-400/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <a href="#" aria-label="TikTok" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-gold-400/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        </a>
+                        <a href="javascript:void(0)" aria-label="WhatsApp (Demo)" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#25D366]/20 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm mb-4 tracking-wide">Servicios</h4>
+                    <ul class="space-y-2.5">
+                        <li><a href="#servicios" class="text-white/50 text-sm hover:text-gold-400 transition-colors">Masajes Relajantes</a></li>
+                        <li><a href="#servicios" class="text-white/50 text-sm hover:text-gold-400 transition-colors">Tratamientos Faciales</a></li>
+                        <li><a href="#servicios" class="text-white/50 text-sm hover:text-gold-400 transition-colors">Manicure & Pedicure</a></li>
+                        <li><a href="#servicios" class="text-white/50 text-sm hover:text-gold-400 transition-colors">Tratamientos Capilares</a></li>
+                        <li><a href="#servicios" class="text-white/50 text-sm hover:text-gold-400 transition-colors">Depilación</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm mb-4 tracking-wide">Horarios</h4>
+                    <ul class="space-y-2.5 text-white/50 text-sm">
+                        <li>Lunes a Viernes: 8:00 – 20:00</li>
+                        <li>Sábados: 9:00 – 18:00</li>
+                        <li>Domingos: 10:00 – 14:00</li>
+                    </ul>
+                    <h4 class="font-semibold text-sm mt-6 mb-3 tracking-wide">Contacto</h4>
+                    <p class="text-white/50 text-sm">WhatsApp: (Demo)</p>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center">
+                <p class="text-white/30 text-xs">&copy; 2024 Salon Urbano. Demo creada por AS BIT. Todos los derechos reservados. Asunción, Paraguay.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="javascript:void(0)" class="whatsapp-pulse fixed bottom-24 md:bottom-8 right-4 md:right-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform" aria-label="WhatsApp (Demo)" title="Esta es una página de demostración">
+        <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <!-- MOBILE BOTTOM BAR -->
+    <div class="mobile-bar fixed bottom-0 left-0 right-0 z-50 md:hidden bg-white/95 nav-blur border-t border-sand-200 py-3 px-4">
+        <a href="javascript:void(0)" class="btn-hover flex items-center justify-center gap-2 bg-gold-400 text-white py-3 rounded-xl font-semibold text-sm w-full hover:bg-gold-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Reservar (Demo)
+        </a>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const navLogo = document.getElementById('nav-logo');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                navbar.classList.add('bg-white/95', 'nav-blur', 'shadow-sm');
+                navbar.classList.remove('bg-transparent');
+                navLogo.classList.remove('text-white');
+                navLogo.classList.add('text-dark');
+                navLinks.forEach(l => {
+                    l.classList.remove('text-white/80');
+                    l.classList.add('text-dark/70');
+                });
+            } else {
+                navbar.classList.remove('bg-white/95', 'nav-blur', 'shadow-sm');
+                navbar.classList.add('bg-transparent');
+                navLogo.classList.add('text-white');
+                navLogo.classList.remove('text-dark');
+                navLinks.forEach(l => {
+                    l.classList.add('text-white/80');
+                    l.classList.remove('text-dark/70');
+                });
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Form AJAX submission
+        const form = document.getElementById('reservation-form');
+        const formSuccess = document.getElementById('form-success');
+
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button[type="submit"]');
+                btn.textContent = 'Enviando...';
+                btn.disabled = true;
+
+                try {
+                    const response = await fetch('/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: new URLSearchParams(new FormData(form)).toString()
+                    });
+
+                    if (response.ok) {
+                        form.style.display = 'none';
+                        formSuccess.classList.remove('hidden');
+                    } else {
+                        btn.textContent = 'Enviar Solicitud de Reserva';
+                        btn.disabled = false;
+                        alert('Hubo un error. Por favor intentá de nuevo o reservá por WhatsApp.');
+                    }
+                } catch (err) {
+                    btn.textContent = 'Enviar Solicitud de Reserva';
+                    btn.disabled = false;
+                    alert('Error de conexión. Por favor intentá de nuevo.');
+                }
+            });
+        }
+
+        // Set min date for date input
+        const dateInput = document.querySelector('input[type="date"]');
+        if (dateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+        }
+    </script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BeautySalon",
+        "name": "Salon Urbano",
+        "description": "Demo de sitio web creado por AS BIT. Spa de lujo en Asunción, Paraguay. Masajes relajantes, tratamientos faciales, manicure, pedicure y más.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Avda. Mariscal López esq. Cruz del Chaco",
+            "addressLocality": "Asunción",
+            "addressCountry": "PY"
+        },
+        "openingHoursSpecification": [
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "20:00" },
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "18:00" },
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "10:00", "closes": "14:00" }
+        ],
+        "priceRange": "$$",
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "reviewCount": "87" }
+    }
+    </script>
+</body>
+</html>
